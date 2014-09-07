@@ -1,0 +1,8 @@
+name: motivator
+version: 0.0.1
+description: A sample web application
+dependencies:
+  browser: any
+  polymer: any
+dev_dependencies:
+#  unittest: any
