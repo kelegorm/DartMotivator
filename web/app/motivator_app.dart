@@ -14,7 +14,8 @@ class MotivatorApp extends PolymerElement {
   @observable
   String message = 'Hi there!';
 
-  IDataSource _data = new DataSource();
+//  IDataSource _data = new DataSource('localhost:3000');
+  IDataSource _data = new MockSource();
 
   //----------------------------------
   //  C O N S T R U C T O R
@@ -32,10 +33,11 @@ class MotivatorApp extends PolymerElement {
 
 
   void loadAdvice() {
-//    messageDisplay.classes.add('loading');
-//    _data.loadAdvice((Object advice) {
-//
-//    });
+    messageDisplay.classes.add('loading');
+    _data.loadAdvice((String advice) {
+      message = advice;
+      messageDisplay.classes.remove('loading');
+    });
   }
 
 }
