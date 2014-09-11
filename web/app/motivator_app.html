@@ -1,0 +1,31 @@
+<link rel="import" href="../packages/polymer/polymer.html">
+
+<polymer-element name="motivator-app" >
+    <template>
+
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" >
+
+        <link rel="stylesheet" href="motivator_app.css">
+
+        <div class="wrap">
+            <div class="container">
+                <div class="page-header">
+                    <h3 class="muted">Motivator</h3>
+                </div>
+                <div class="main-block">
+                    <span id="messageDisplay">{{message}}</span>
+                </div>
+                <div class="buttons">
+                    <a class="lead input-xlarge" on-click="{{nextButton_click}}" href="">Next advice</a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div>
+                <p class="muted credit">Example for <a href="http://letslearnnodejs.kelegorm.ru/">Let's learn Node.js</a></p>
+            </div>
+        </footer>
+    </template>
+    <script type="application/dart" src="motivator_app.dart"></script>
+</polymer-element>
