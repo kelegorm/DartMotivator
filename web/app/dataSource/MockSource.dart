@@ -1,4 +1,4 @@
-part of motivatorModel;
+part of dataSource;
 
 class MockSource implements IDataSource {
 

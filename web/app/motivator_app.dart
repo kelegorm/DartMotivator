@@ -1,7 +1,7 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 
-import 'model/lib.dart';
+import 'dataSource/lib.dart';
 
 @CustomTag('motivator-app')
 class MotivatorApp extends PolymerElement {
@@ -14,7 +14,7 @@ class MotivatorApp extends PolymerElement {
   @observable
   String message = 'Hi there!';
 
-//  IDataSource _data = new DataSource('localhost:3000');
+//  IDataSource _data = new DataSource('http://motivator.apps.kelegorm.ru');
   IDataSource _data = new MockSource();
 
   //----------------------------------
@@ -22,6 +22,8 @@ class MotivatorApp extends PolymerElement {
   //----------------------------------
   MotivatorApp.created() : super.created() {
     messageDisplay =  shadowRoot.querySelector('#messageDisplay') as SpanElement;
+
+    loadAdvice();
   }
 
 
