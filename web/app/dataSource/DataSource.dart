@@ -4,7 +4,7 @@ class DataSource implements IDataSource {
 
   String serverUrl;
 
-  int _lastAdviceId = null;
+  String _lastAdviceId = '';
 
 
   //----------------------------------
@@ -16,13 +16,13 @@ class DataSource implements IDataSource {
 
 
   void loadAdvice(Function callback) {
-    Map data = {"lastId": _lastAdviceId};
+    String data = "?lastId=$_lastAdviceId";
 
-    HttpRequest.request(serverUrl + '/advice/random', method: 'GET', sendData: '')
-      .then((HttpRequest request) {
-        print(request.status);
-        print(request.response);
-        callback(request.responseText);
-      });
+    HttpRequest.request(serverUrl + '/advice/random' + data, method: 'GET')
+    .then((HttpRequest request) {
+      var newAdvice = JSON.decode(request.response);
+      _lastAdviceId = newAdvice["_id"];
+      callback(newAdvice["text"]);
+    });
   }
 }

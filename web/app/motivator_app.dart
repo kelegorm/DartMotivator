@@ -12,10 +12,11 @@ class MotivatorApp extends PolymerElement {
   SpanElement messageDisplay;
 
   @observable
-  String message = 'Hi there!';
+  String message = '';
 
-//  IDataSource _data = new DataSource('http://motivator.apps.kelegorm.ru');
-  IDataSource _data = new MockSource();
+  IDataSource _data = new DataSource('http://motivator.apps.kelegorm.ru');
+//  IDataSource _data = new DataSource('http://localhost:3000');
+//  IDataSource _data = new MockSource();
 
   //----------------------------------
   //  C O N S T R U C T O R
