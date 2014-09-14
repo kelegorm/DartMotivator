@@ -20,11 +20,15 @@ packages:
   code_transformers:
     description: code_transformers
     source: hosted
-    version: "0.2.2"
+    version: "0.2.3"
   collection:
     description: collection
     source: hosted
     version: "1.0.0"
+  core_elements:
+    description: core_elements
+    source: hosted
+    version: "0.2.0+1"
   csslib:
     description: csslib
     source: hosted
@@ -40,7 +44,11 @@ packages:
   observe:
     description: observe
     source: hosted
-    version: "0.12.0"
+    version: "0.12.1+1"
+  paper_elements:
+    description: paper_elements
+    source: hosted
+    version: "0.1.1+2"
   path:
     description: path
     source: hosted
@@ -48,7 +56,7 @@ packages:
   polymer:
     description: polymer
     source: hosted
-    version: "0.13.0+3"
+    version: "0.13.1"
   polymer_expressions:
     description: polymer_expressions
     source: hosted
@@ -57,6 +65,10 @@ packages:
     description: pool
     source: hosted
     version: "1.0.1"
+  quiver:
+    description: quiver
+    source: hosted
+    version: "0.18.2"
   smoke:
     description: smoke
     source: hosted

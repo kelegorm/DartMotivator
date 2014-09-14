@@ -1,4 +1,7 @@
 <link rel="import" href="../packages/polymer/polymer.html">
+<link rel="import" href="../packages/paper_elements/paper_dialog.html">
+<link rel="import" href="../packages/paper_elements/paper_button.html">
+<link rel="import" href="../packages/paper_elements/paper_input.html">
 
 <polymer-element name="motivator-app" >
     <template>
@@ -6,6 +9,7 @@
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" >
 
         <link rel="stylesheet" href="motivator_app.css">
+
 
         <div class="wrap">
             <div class="container">
@@ -16,10 +20,17 @@
                     <span id="messageDisplay">{{message}}</span>
                 </div>
                 <div class="buttons">
-                    <a class="lead input-xlarge" on-click="{{nextButton_click}}" href="">Next advice</a>
+                    <a class="lead input-xlarge" on-click="{{nextButton_click}}" href="">Next advice</a><br />
+                    <a class="muted" on-click="{{addAdviceButton_click}}" href="">Send own advice</a>
                 </div>
             </div>
         </div>
+
+        <paper-dialog class="add-advice-dialog" heading="Submit new advice" opened="{{addAdvicePopup_opened}}">
+            <paper-input label="type you advice" multiline rows="3" value="{{submittedAdvice}}" layout vertical autofocus></paper-input>
+            <paper-button label="Close" affirmative></paper-button>
+            <paper-button label="Submit!" affirmative on-click="{{submitAdviceButton_click}}"></paper-button>
+        </paper-dialog>
 
         <footer>
             <div class="container">

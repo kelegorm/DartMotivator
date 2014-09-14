@@ -25,4 +25,9 @@ class DataSource implements IDataSource {
       callback(newAdvice["text"]);
     });
   }
+
+  void submitAdvice(String newAdvice) {
+    String data = JSON.encode({"text": newAdvice});
+    HttpRequest.request(serverUrl + '/advice', method: 'POST', sendData: data);
+  }
 }

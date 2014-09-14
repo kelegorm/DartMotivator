@@ -29,6 +29,10 @@ class MockSource implements IDataSource {
     callback(newAdvice.text);
   }
 
+  void submitAdvice(String newAdvice) {
+    _advices.add(new Advice(newAdvice, _advices.length));
+  }
+
   Advice _getRandomAdvice(int lastAdviceId) {
     int newId = new Random().nextInt(_advices.length - 1);
 
