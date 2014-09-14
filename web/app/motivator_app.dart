@@ -50,6 +50,7 @@ class MotivatorApp extends PolymerElement {
 
   void submitAdviceButton_click(MouseEvent event) {
     submitAdvice(submittedAdvice);
+    submittedAdvice = '';
   }
 
   void loadAdvice() {
