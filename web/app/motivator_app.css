@@ -1,8 +1,5 @@
-.wrap{
-    min-height:100%;
-    height:auto!important;
-    height:100%;
-    margin:0 auto -60px;
+:host {
+    min-height: 350px;
 }
 
 footer{
@@ -19,12 +16,8 @@ footer{
     }
 }
 
-.container{
-    width:auto;
+.app-width{
     max-width:680px;
-}
-.container .credit{
-    margin:20px 0;
 }
 
 .loading{
@@ -32,10 +25,7 @@ footer{
 }
 
 .main-block {
-    margin-top: 60px;
-    margin-bottom: 60px;
     text-align: center;
-    min-height: 220px;
 }
 
 .main-block #messageDisplay {
@@ -45,8 +35,6 @@ footer{
 }
 
 .buttons {
-    margin-top: 20px;
-    margin-bottom: 60px;
     line-height: 30px;
     text-align: center;
 }

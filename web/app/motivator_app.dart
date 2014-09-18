@@ -13,7 +13,7 @@ class MotivatorApp extends PolymerElement {
   SpanElement messageDisplay;
 
   @observable
-  String message = '';
+  String message = 'WERFBFDVs dF!!!!';
 
   @observable
   bool addAdvicePopup_opened = false;
