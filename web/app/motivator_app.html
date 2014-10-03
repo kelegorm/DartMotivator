@@ -7,6 +7,7 @@
     <template>
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" >
         <link rel="stylesheet" href="motivator_app.css">
+        <link rel="stylesheet" href="theme.css">
 
 
         <div flex horizontal center-justified layout>
@@ -20,7 +21,9 @@
                         <span id="messageDisplay">{{message}}</span>
                     </div>
                     <div self-center class="buttons">
-                        <paper-button raisedButton label="Next advice" role="button" class="btn-primary" tab-index="0" on-click="{{nextButton_click}}"></paper-button>
+                        <paper-button label="Next advice"
+                                      raisedButton class="color-primary"
+                                      role="button" tab-index="0" on-click="{{nextButton_click}}"></paper-button>
                         <br >
                         <a class="muted" on-click="{{addAdviceButton_click}}" href="">Send own advice</a>
                     </div>

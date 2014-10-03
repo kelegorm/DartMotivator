@@ -4,7 +4,9 @@ description: A sample web application
 dependencies:
   browser: any
   polymer: any
-  polymer: any
   paper_elements: any
 dev_dependencies:
 #  unittest: any
+transformers:
+- polymer:
+    entry_points: web/motivator.html
