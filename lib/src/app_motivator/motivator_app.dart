@@ -1,7 +1,7 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 
-import 'dataSource/lib.dart';
+import 'package:motivator/data_source.dart';
 
 @CustomTag('motivator-app')
 class MotivatorApp extends PolymerElement {

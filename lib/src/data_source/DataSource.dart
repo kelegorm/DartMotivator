@@ -1,4 +1,4 @@
-part of dataSource;
+part of motivator.data_source;
 
 class DataSource implements IDataSource {
 
