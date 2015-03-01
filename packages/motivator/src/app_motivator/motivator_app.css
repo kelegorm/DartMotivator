@@ -1,0 +1,40 @@
+:host {
+    min-height: 350px;
+}
+
+footer{
+    height:60px;
+}
+footer{
+    background-color:#f5f5f5;
+}
+@media (max-width: 767px) {
+    footer{margin-left:-20px;
+        margin-right:-20px;
+        padding-left:20px;
+        padding-right:20px;
+    }
+}
+
+.app-width{
+    max-width:680px;
+}
+
+.loading{
+    opacity: .5;
+}
+
+.main-block {
+    text-align: center;
+}
+
+.main-block #messageDisplay {
+    font-size: 34px;
+    line-height: 34px;
+    font-weight: bold;
+}
+
+.buttons {
+    line-height: 30px;
+    text-align: center;
+}

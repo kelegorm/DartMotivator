@@ -1,0 +1,51 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../../../packages/paper_elements/paper_dialog.html">
+<link rel="import" href="../../../../packages/paper_elements/paper_button.html">
+<link rel="import" href="../../../../packages/paper_elements/paper_input.html">
+
+<polymer-element name="motivator-app" vertical layout applyAuthorStyles>
+    <template>
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" >
+        <link rel="stylesheet" href="motivator_app.css">
+        <link rel="stylesheet" href="theme.css">
+
+
+        <div flex horizontal center-justified layout>
+            <div flex class="app-width" vertical layout>
+                <div class="page-header">
+                    <h3 class="muted">Motivator</h3>
+                </div>
+
+                <div flex vertical around-justified layout>
+                    <div self-center class="main-block">
+                        <span id="messageDisplay">{{message}}</span>
+                    </div>
+                    <div self-center class="buttons">
+                        <paper-button label="Next advice"
+                                      raisedButton class="color-primary"
+                                      role="button" tab-index="0" on-click="{{nextButton_click}}"></paper-button>
+                        <br >
+                        <a class="muted" on-click="{{addAdviceButton_click}}" href="">Send own advice</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <paper-dialog class="add-advice-dialog" heading="Submit new advice" opened="{{addAdvicePopup_opened}}">
+            <paper-input label="type you advice" required multiline rows="3" value="{{submittedAdvice}}" layout vertical autofocus></paper-input>
+            <paper-button label="Close" affirmative></paper-button>
+            <paper-button label="Submit!" affirmative on-click="{{submitAdviceButton_click}}"></paper-button>
+        </paper-dialog>
+
+
+        <footer horizontal center-justified layout>
+            <div flex self-center class="muted credit app-width">
+                Example for <a href="http://letslearnnodejs.kelegorm.ru/">Let's learn Node.js</a>
+            </div>
+        </footer>
+
+    </template>
+
+    <script type="application/dart" src="motivator_app.dart"></script>
+</polymer-element>
