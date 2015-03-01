@@ -1,0 +1,4194 @@
+<!DOCTYPE html><html><head><script src="packages/web_components/platform.js"></script>
+<script src="packages/web_components/dart_support.js"></script>
+
+    <meta charset="utf-8">
+    <title>Motivator</title>
+
+    
+
+    
+</head>
+<body fullbleed="" vertical="" layout="" unresolved=""><link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<!-- unminified for debugging:
+<link rel="import" href="src/js/polymer/layout.html">
+<script src="src/js/polymer/polymer.concat.js"></script>
+-->
+
+
+
+<style shim-shadowdom="">
+/*******************************
+          Flex Layout
+*******************************/
+
+html /deep/ [layout][horizontal], html /deep/ [layout][vertical] {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+html /deep/ [layout][horizontal][inline], html /deep/ [layout][vertical][inline] {
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+}
+
+html /deep/ [layout][horizontal] {
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+html /deep/ [layout][horizontal][reverse] {
+  -ms-flex-direction: row-reverse;
+  -webkit-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+
+html /deep/ [layout][vertical] {
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+html /deep/ [layout][vertical][reverse] {
+  -ms-flex-direction: column-reverse;
+  -webkit-flex-direction: column-reverse;
+  flex-direction: column-reverse;
+}
+
+html /deep/ [layout][wrap] {
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+html /deep/ [layout][wrap-reverse] {
+  -ms-flex-wrap: wrap-reverse;
+  -webkit-flex-wrap: wrap-reverse;
+  flex-wrap: wrap-reverse;
+}
+
+html /deep/ [flex] {
+  -ms-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+html /deep/ [flex][auto] {
+  -ms-flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+html /deep/ [flex][none] {
+  -ms-flex: none;
+  -webkit-flex: none;
+  flex: none;
+}
+
+html /deep/ [flex][one] {
+  -ms-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+html /deep/ [flex][two] {
+  -ms-flex: 2;
+  -webkit-flex: 2;
+  flex: 2;
+}
+
+html /deep/ [flex][three] {
+  -ms-flex: 3;
+  -webkit-flex: 3;
+  flex: 3;
+}
+
+html /deep/ [flex][four] {
+  -ms-flex: 4;
+  -webkit-flex: 4;
+  flex: 4;
+}
+
+html /deep/ [flex][five] {
+  -ms-flex: 5;
+  -webkit-flex: 5;
+  flex: 5;
+}
+
+html /deep/ [flex][six] {
+  -ms-flex: 6;
+  -webkit-flex: 6;
+  flex: 6;
+}
+
+html /deep/ [flex][seven] {
+  -ms-flex: 7;
+  -webkit-flex: 7;
+  flex: 7;
+}
+
+html /deep/ [flex][eight] {
+  -ms-flex: 8;
+  -webkit-flex: 8;
+  flex: 8;
+}
+
+html /deep/ [flex][nine] {
+  -ms-flex: 9;
+  -webkit-flex: 9;
+  flex: 9;
+}
+
+html /deep/ [flex][ten] {
+  -ms-flex: 10;
+  -webkit-flex: 10;
+  flex: 10;
+}
+
+html /deep/ [flex][eleven] {
+  -ms-flex: 11;
+  -webkit-flex: 11;
+  flex: 11;
+}
+
+html /deep/ [flex][twelve] {
+  -ms-flex: 12;
+  -webkit-flex: 12;
+  flex: 12;
+}
+
+/* alignment in cross axis */
+
+html /deep/ [layout][start] {
+  -ms-flex-align: start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+
+html /deep/ [layout][center], html /deep/ [layout][center-center] {
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+html /deep/ [layout][end] {
+  -ms-flex-align: end;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+}
+
+/* alignment in main axis */
+
+html /deep/ [layout][start-justified] {
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+
+html /deep/ [layout][center-justified], html /deep/ [layout][center-center] {
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+html /deep/ [layout][end-justified] {
+  -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+html /deep/ [layout][around-justified] {
+  -ms-flex-pack: around;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+}
+
+html /deep/ [layout][justified] {
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+/* self alignment */
+
+html /deep/ [self-start] {
+  -ms-align-self: flex-start;
+  -webkit-align-self: flex-start;
+  align-self: flex-start;
+}
+
+html /deep/ [self-center] {
+  -ms-align-self: center;
+  -webkit-align-self: center;
+  align-self: center;
+}
+
+html /deep/ [self-end] {
+  -ms-align-self: flex-end;
+  -webkit-align-self: flex-end;
+  align-self: flex-end;
+}
+
+html /deep/ [self-stretch] {
+  -ms-align-self: stretch;
+  -webkit-align-self: stretch;
+  align-self: stretch;
+}
+
+/*******************************
+          Other Layout
+*******************************/
+
+html /deep/ [block] {
+  display: block;
+}
+
+/* ie support for hidden */
+html /deep/ [hidden] {
+  display: none !important;
+}
+
+html /deep/ [relative] {
+  position: relative;
+}
+
+html /deep/ [fit] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+body[fullbleed] {
+  margin: 0;
+  height: 100vh;
+}
+
+/*******************************
+            Other
+*******************************/
+
+html /deep/ [segment], html /deep/ segment {
+  display: block;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 1em 0.5em;
+  padding: 1em;
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 5px 5px 5px 5px;
+}
+
+</style><script src="packages/polymer/src/js/polymer/polymer.js"></script><script>
+// TODO(sigmund): remove this script tag (dartbug.com/19650). This empty
+// script tag is necessary to work around a bug in Chrome 36.
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+// This empty script is here to workaround issue
+// https://github.com/dart-lang/core-elements/issues/11
+</script>
+
+
+
+
+
+
+
+
+
+
+<!--
+The `core-overlay` element displays overlayed on top of other content. It starts
+out hidden and is displayed by setting its `opened` property to true.
+A `core-overlay's` opened state can be toggled by calling the `toggle`
+method.
+
+The `core-overlay` will, by default, show/hide itself when it's opened. The 
+`target` property may be set to another element to cause that element to 
+be shown when the overlay is opened.
+
+It's common to want a `core-overlay` to animate to its opened
+position. The `core-overlay` element uses a `core-transition` to handle
+animation. The default transition is `core-transition-fade` which 
+causes the overlay to fade in when displayed. See 
+<a href="../core-transition/">`core-transition`</a> for more
+information about customizing a `core-overlay's` opening animation. The
+`backdrop` property can be set to true to show a backdrop behind the overlay
+that will darken the rest of the window.
+
+An element that should close the `core-overlay` will automatically
+do so if it's given the `core-overlay-toggle` attribute. This attribute
+can be customized with the `closeAttribute` property. You can also use
+`closeSelector` if more general matching is needed.
+
+By default  `core-overlay` will close whenever the user taps outside it or
+presses the escape key. This behavior can be turned off via the
+`autoCloseDisabled` property.
+
+    <core-overlay>
+      <h2>Dialog</h2>
+      <input placeholder="say something..." autofocus>
+      <div>I agree with this wholeheartedly.</div>
+      <button core-overlay-toggle>OK</button>
+    </core-overlay>
+
+`core-overlay` will automatically size and position itself according to the 
+following rules. If the target's style.top and style.left are unset, the 
+target will be centered. The size of the target is constrained to be no larger
+than the window dimensions. The `margin` property specifies the extra amount
+of space that should be reserved around the overlay. This can be used to ensure
+that, for example, a drop shadow is always visible around the overlay.
+
+@group Core Elements
+@element core-overlay
+@homepage github.io
+-->
+<!--
+Fired when the `core-overlay`'s `opened` property changes.
+
+@event core-overlay-open
+@param {Object} detail
+@param {Object} detail.opened the opened state
+-->
+
+
+
+
+
+<script>
+// This empty script is here to workaround issue
+// https://github.com/dart-lang/core-elements/issues/11
+</script>
+
+
+
+<polymer-element name="core-meta" attributes="label type" hidden="">
+<script>
+
+  (function() {
+    
+    var SKIP_ID = 'meta';
+    var metaData = {}, metaArray = {};
+
+    Polymer('core-meta', {
+      
+      /**
+       * The type of meta-data.  All meta-data with the same type with be
+       * stored together.
+       * 
+       * @attribute type
+       * @type string
+       * @default 'default'
+       */
+      type: 'default',
+      
+      alwaysPrepare: true,
+      
+      ready: function() {
+        this.register(this.id);
+      },
+      
+      get metaArray() {
+        var t = this.type;
+        if (!metaArray[t]) {
+          metaArray[t] = [];
+        }
+        return metaArray[t];
+      },
+      
+      get metaData() {
+        var t = this.type;
+        if (!metaData[t]) {
+          metaData[t] = {};
+        }
+        return metaData[t];
+      },
+      
+      register: function(id, old) {
+        if (id && id !== SKIP_ID) {
+          this.unregister(this, old);
+          this.metaData[id] = this;
+          this.metaArray.push(this);
+        }
+      },
+      
+      unregister: function(meta, id) {
+        delete this.metaData[id || meta.id];
+        var i = this.metaArray.indexOf(meta);
+        if (i >= 0) {
+          this.metaArray.splice(i, 1);
+        }
+      },
+      
+      /**
+       * Returns a list of all meta-data elements with the same type.
+       * 
+       * @property list
+       * @type array
+       * @default []
+       */
+      get list() {
+        return this.metaArray;
+      },
+      
+      /**
+       * Retrieves meta-data by ID.
+       *
+       * @method byId
+       * @param {String} id The ID of the meta-data to be returned.
+       * @returns Returns meta-data.
+       */
+      byId: function(id) {
+        return this.metaData[id];
+      }
+      
+    });
+    
+  })();
+  
+</script>
+</polymer-element>
+<polymer-element name="core-transition" extends="core-meta">
+  
+  <script>
+    Polymer('core-transition', {
+      
+      type: 'transition',
+
+      /**
+       * Run the animation.
+       *
+       * @method go
+       * @param {Node} node The node to apply the animation on
+       * @param {Object} state State info
+       */
+      go: function(node, state) {
+        this.complete(node);
+      },
+
+      /**
+       * Set up the animation. This may include injecting a stylesheet,
+       * applying styles, creating a web animations object, etc.. This
+       *
+       * @method setup
+       * @param {Node} node The animated node
+       */
+      setup: function(node) {
+      },
+
+      /**
+       * Tear down the animation.
+       *
+       * @method teardown
+       * @param {Node} node The animated node
+       */
+      teardown: function(node) {
+      },
+
+      /**
+       * Called when the animation completes. This function also fires the
+       * `core-transitionend` event.
+       *
+       * @method complete
+       * @param {Node} node The animated node
+       */
+      complete: function(node) {
+        this.fire('core-transitionend', null, node);
+      },
+
+      /**
+       * Utility function to listen to an event on a node once.
+       *
+       * @method listenOnce
+       * @param {Node} node The animated node
+       * @param {string} event Name of an event
+       * @param {Function} fn Event handler
+       * @param {Array} args Additional arguments to pass to `fn`
+       */
+      listenOnce: function(node, event, fn, args) {
+        var self = this;
+        var listener = function() {
+          fn.apply(self, args);
+          node.removeEventListener(event, listener, false);
+        }
+        node.addEventListener(event, listener, false);
+      }
+
+    });
+  </script>
+</polymer-element>
+
+<polymer-element name="core-key-helper">
+  <script>
+    Polymer('core-key-helper', {
+      ENTER_KEY: 13,
+      ESCAPE_KEY: 27
+    });
+  </script>
+</polymer-element>
+<polymer-element name="core-overlay-layer">
+<template>
+  <style>
+    :host {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      display: none;
+    }
+
+    :host(.core-opened) {
+      display: block;
+    }
+  </style>
+  <content></content>
+</template>
+<script>
+(function() {
+
+  Polymer('core-overlay-layer', {
+    publish: {
+      opened: false
+    },
+    openedChanged: function() {
+      this.classList.toggle('core-opened', this.opened);
+    },
+    /**
+     * Adds an element to the overlay layer
+     */
+    addElement: function(element) {
+      if (!this.parentNode) {
+        document.querySelector('body').appendChild(this);
+      }
+      if (element.parentNode !== this) {
+        element.__contents = [];
+        var ip$ = element.querySelectorAll('content');
+        for (var i=0, l=ip$.length, n; (i<l) && (n = ip$[i]); i++) {
+          this.moveInsertedElements(n);
+          this.cacheDomLocation(n);
+          n.parentNode.removeChild(n);
+          element.__contents.push(n);
+        }
+        this.cacheDomLocation(element);
+        this.updateEventController(element);
+        var h = this.makeHost();
+        h.shadowRoot.appendChild(element);
+        element.__host = h;
+      }
+    },
+    makeHost: function() {
+      var h = document.createElement('overlay-host');
+      h.createShadowRoot();
+      this.appendChild(h);
+      return h;
+    },
+    moveInsertedElements: function(insertionPoint) {
+      var n$ = insertionPoint.getDistributedNodes();
+      var parent = insertionPoint.parentNode;
+      insertionPoint.__contents = [];
+      for (var i=0, l=n$.length, n; (i<l) && (n=n$[i]); i++) {
+        this.cacheDomLocation(n);
+        this.updateEventController(n);
+        insertionPoint.__contents.push(n);
+        parent.appendChild(n);  
+      }
+    },
+    updateEventController: function(element) {
+      element.eventController = this.element.findController(element);
+    },
+    /**
+     * Removes an element from the overlay layer
+     */
+    removeElement: function(element) {
+      element.eventController = null;
+      this.replaceElement(element);
+      var h = element.__host;
+      if (h) {
+        h.parentNode.removeChild(h);
+      }
+    },
+    replaceElement: function(element) {
+      if (element.__contents) {
+        for (var i=0, c$=element.__contents, c; (c=c$[i]); i++) {
+          this.replaceElement(c);
+        }
+        element.__contents = null;
+      }
+      if (element.__parentNode) {
+        var n = element.__nextElementSibling && element.__nextElementSibling 
+            === element.__parentNode ? element.__nextElementSibling : null;
+        element.__parentNode.insertBefore(element, n);
+      }
+    },
+    cacheDomLocation: function(element) {
+      element.__nextElementSibling = element.nextElementSibling;
+      element.__parentNode = element.parentNode;
+    }
+  });
+  
+})();
+</script>
+</polymer-element>
+<style>
+  .core-overlay-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .core-overlay-backdrop.core-opened {
+    opacity: 0.6;
+  }
+</style><polymer-element name="core-overlay">
+<script>
+(function() {
+
+  Polymer('core-overlay', {
+
+    publish: {
+      /**
+       * The target element that will be shown when the overlay is 
+       * opened. If unspecified, the core-overlay itself is the target.
+       *
+       * @attribute target
+       * @type Object
+       * @default the overlay element
+       */
+      target: null,
+
+
+      /**
+       * A `core-overlay`'s size is guaranteed to be 
+       * constrained to the window size. To achieve this, the sizingElement
+       * is sized with a max-height/width. By default this element is the 
+       * target element, but it can be specifically set to a specific element
+       * inside the target if that is more appropriate. This is useful, for 
+       * example, when a region inside the overlay should scroll if needed.
+       *
+       * @attribute sizingTarget
+       * @type Object
+       * @default the target element
+       */
+      sizingTarget: null,
+    
+      /**
+       * Set opened to true to show an overlay and to false to hide it.
+       * A `core-overlay` may be made initially opened by setting its
+       * `opened` attribute.
+       * @attribute opened
+       * @type boolean
+       * @default false
+       */
+      opened: false,
+
+      /**
+       * If true, the overlay has a backdrop darkening the rest of the screen.
+       * The backdrop element is attached to the document body and may be styled
+       * with the class `core-overlay-backdrop`. When opened the `core-opened`
+       * class is applied.
+       *
+       * @attribute backdrop
+       * @type boolean
+       * @default false
+       */    
+      backdrop: false,
+
+      /**
+       * If true, the overlay is guaranteed to display above page content.
+       *
+       * @attribute layered
+       * @type boolean
+       * @default false
+      */
+      layered: false,
+    
+      /**
+       * By default an overlay will close automatically if the user
+       * taps outside it or presses the escape key. Disable this
+       * behavior by setting the `autoCloseDisabled` property to true.
+       * @attribute autoCloseDisabled
+       * @type boolean
+       * @default false
+       */
+      autoCloseDisabled: false,
+
+      /**
+       * This property specifies an attribute on elements that should
+       * close the overlay on tap. Should not set `closeSelector` if this
+       * is set.
+       *
+       * @attribute closeAttribute
+       * @type string
+       * @default "core-overlay-toggle"
+       */
+      closeAttribute: 'core-overlay-toggle',
+
+      /**
+       * This property specifies a selector matching elements that should
+       * close the overlay on tap. Should not set `closeAttribute` if this
+       * is set.
+       *
+       * @attribute closeSelector
+       * @type string
+       * @default ""
+       */
+      closeSelector: '',
+
+      /**
+       * A `core-overlay` target's size is constrained to the window size.
+       * The `margin` property specifies a pixel amount around the overlay 
+       * that will be reserved. It's useful for ensuring that, for example, 
+       * a shadow displayed outside the target will always be visible.
+       *
+       * @attribute margin
+       * @type number
+       * @default 0
+       */
+      margin: 0,
+
+      /**
+       * The transition property specifies a string which identifies a 
+       * <a href="../core-transition/">`core-transition`</a> element that 
+       * will be used to help the overlay open and close. The default
+       * `core-transition-fade` will cause the overlay to fade in and out.
+       *
+       * @attribute transition
+       * @type string
+       * @default 'core-transition-fade'
+       */
+      transition: 'core-transition-fade'
+
+    },
+
+    captureEventName: 'tap',
+    targetListeners: {
+      'tap': 'tapHandler',
+      'keydown': 'keydownHandler',
+      'core-transitionend': 'transitionend'
+    },
+    
+    registerCallback: function(element) {
+      this.layer = document.createElement('core-overlay-layer');
+      this.keyHelper = document.createElement('core-key-helper');
+      this.meta = document.createElement('core-transition');
+      this.scrim = document.createElement('div');
+      this.scrim.className = 'core-overlay-backdrop';
+    },
+
+    ready: function() {
+      this.target = this.target || this;
+      // flush to ensure styles are installed before paint
+      Platform.flush();
+    },
+
+    /** 
+     * Toggle the opened state of the overlay.
+     * @method toggle
+     */
+    toggle: function() {
+      this.opened = !this.opened;
+    },
+
+    /** 
+     * Open the overlay. This is equivalent to setting the `opened`
+     * property to true.
+     * @method open
+     */
+    open: function() {
+      this.opened = true;
+    },
+
+    /** 
+     * Close the overlay. This is equivalent to setting the `opened` 
+     * property to false.
+     * @method close
+     */
+    close: function() {
+      this.opened = false;
+    },
+
+    domReady: function() {
+      this.ensureTargetSetup();
+    },
+
+    targetChanged: function(old) {
+      if (this.target) {
+        // really make sure tabIndex is set
+        if (this.target.tabIndex < 0) {
+          this.target.tabIndex = -1;
+        }
+        this.addElementListenerList(this.target, this.targetListeners);
+        this.target.style.display = 'none';
+      }
+      if (old) {
+        this.removeElementListenerList(old, this.targetListeners);
+        var transition = this.getTransition();
+        if (transition) {
+          transition.teardown(old);
+        } else {
+          old.style.position = '';
+          old.style.outline = '';
+        }
+        old.style.display = '';
+      }
+    },
+
+    // NOTE: wait to call this until we're as sure as possible that target
+    // is styled.
+    ensureTargetSetup: function() {
+      if (!this.target || this.target.__overlaySetup) {
+        return;
+      }
+      this.target.__overlaySetup = true;
+      this.target.style.display = '';
+      var transition = this.getTransition();
+      if (transition) {
+        transition.setup(this.target);
+      }
+      var computed = getComputedStyle(this.target);
+      this.targetStyle = {
+        position: computed.position === 'static' ? 'fixed' :
+            computed.position
+      }
+      if (!transition) {
+        this.target.style.position = this.targetStyle.position;
+        this.target.style.outline = 'none';
+      }
+      this.target.style.display = 'none';
+    },
+
+    openedChanged: function() {
+      this.transitioning = true;
+      this.ensureTargetSetup();
+      this.prepareRenderOpened();
+      // continue styling after delay so display state can change
+      // without aborting transitions
+      // note: we wait a full frame so that transition changes executed
+      // during measuring do not cause transition
+      this.async(function() {
+        this.target.style.display = '';
+        this.async('renderOpened');
+      });
+      this.fire('core-overlay-open', this.opened);
+    },
+
+    // tasks which must occur before opening; e.g. making the element visible
+    prepareRenderOpened: function() {
+      if (this.opened) {
+        addOverlay(this);
+      }
+      this.prepareBackdrop();
+      // async so we don't auto-close immediately via a click.
+      this.async(function() {
+        if (!this.autoCloseDisabled) {
+          this.enableElementListener(this.opened, document,
+              this.captureEventName, 'captureHandler', true);
+        }
+      });
+      this.enableElementListener(this.opened, window, 'resize',
+          'resizeHandler');
+
+      if (this.opened) {
+        // TODO(sorvell): force SD Polyfill to render
+        forcePolyfillRender(this.target);
+        if (!this._shouldPosition) {
+          this.target.style.position = 'absolute';
+          var computed = getComputedStyle(this.target);
+          var t = (computed.top === 'auto' && computed.bottom === 'auto');
+          var l = (computed.left === 'auto' && computed.right === 'auto');
+          this.target.style.position = this.targetStyle.position;
+          this._shouldPosition = {top: t, left: l};
+        }
+        // if we are showing, then take care when measuring
+        this.prepareMeasure(this.target);
+        this.updateTargetDimensions();
+        this.finishMeasure(this.target);
+        if (this.layered) {
+          this.layer.addElement(this.target);
+          this.layer.opened = this.opened;
+        }
+      }
+    },
+
+    // tasks which cause the overlay to actually open; typically play an
+    // animation
+    renderOpened: function() {
+      var transition = this.getTransition();
+      if (transition) {
+        transition.go(this.target, {opened: this.opened});
+      } else {
+        this.transitionend();
+      }
+      this.renderBackdropOpened();
+    },
+
+    // finishing tasks; typically called via a transition
+    transitionend: function(e) {
+      // make sure this is our transition event.
+      if (e && e.target !== this.target) {
+        return;
+      }
+      this.transitioning = false;
+      if (!this.opened) {
+        this.resetTargetDimensions();
+        this.target.style.display = 'none';
+        this.completeBackdrop();
+        removeOverlay(this);
+        if (this.layered) {
+          if (!currentOverlay()) {
+            this.layer.opened = this.opened;
+          }
+          this.layer.removeElement(this.target);
+        }
+      }
+      this.applyFocus();
+    },
+
+    prepareBackdrop: function() {
+      if (this.backdrop && this.opened) {
+        if (!this.scrim.parentNode) {
+          document.body.appendChild(this.scrim);
+          this.scrim.style.zIndex = currentOverlayZ() - 1;
+        }
+        trackBackdrop(this);
+      }
+    },
+
+    renderBackdropOpened: function() {
+      if (this.backdrop && getBackdrops().length < 2) {
+        this.scrim.classList.toggle('core-opened', this.opened);
+      }
+    },
+
+    completeBackdrop: function() {
+      if (this.backdrop) {
+        trackBackdrop(this);
+        if (getBackdrops().length === 0) {
+          this.scrim.parentNode.removeChild(this.scrim);
+        }
+      }
+    },
+
+    prepareMeasure: function(target) {
+      target.style.transition = target.style.webkitTransition = 'none';
+      target.style.transform = target.style.webkitTransform = 'none';
+      target.style.display = '';
+    },
+
+    finishMeasure: function(target) {
+      target.style.display = 'none';
+      target.style.transform = target.style.webkitTransform = '';
+      target.style.transition = target.style.webkitTransition = '';
+    },
+
+    getTransition: function() {
+      return this.meta.byId(this.transition);
+    },
+
+    getFocusNode: function() {
+      return this.target.querySelector('[autofocus]') || this.target;
+    },
+
+    applyFocus: function() {
+      var focusNode = this.getFocusNode();
+      if (this.opened) {
+        focusNode.focus();
+      } else {
+        focusNode.blur();
+        if (currentOverlay() == this) {
+          console.warn('Current core-overlay is attempting to focus itself as next! (bug)');
+        } else {
+          focusOverlay();
+        }
+      }
+    },
+
+    updateTargetDimensions: function() {
+      this.positionTarget();
+      this.sizeTarget();
+      //
+      if (this.layered) {
+        var rect = this.target.getBoundingClientRect();
+        this.target.style.top = rect.top + 'px';
+        this.target.style.left = rect.left + 'px';
+        this.target.style.right = this.target.style.bottom = 'auto';
+      }
+    },
+
+    sizeTarget: function() {
+      var sizer = this.sizingTarget || this.target;
+      var rect = sizer.getBoundingClientRect();
+      var mt = rect.top === this.margin ? this.margin : this.margin * 2;
+      var ml = rect.left === this.margin ? this.margin : this.margin * 2;
+      var h = window.innerHeight - rect.top - mt;
+      var w = window.innerWidth - rect.left - ml;
+      sizer.style.maxHeight = h + 'px';
+      sizer.style.maxWidth = w + 'px';
+      sizer.style.boxSizing = 'border-box';
+    },
+
+    positionTarget: function() {
+      // vertically and horizontally center if not positioned
+      if (this._shouldPosition.top) {
+        var t = Math.max((window.innerHeight - 
+            this.target.offsetHeight - this.margin*2) / 2, this.margin);
+        this.target.style.top = t + 'px';
+      }
+      if (this._shouldPosition.left) {
+        var l = Math.max((window.innerWidth - 
+            this.target.offsetWidth - this.margin*2) / 2, this.margin);
+        this.target.style.left = l + 'px';
+      }
+    },
+
+    resetTargetDimensions: function() {
+      this.target.style.top = this.target.style.left = '';
+      this.target.style.right = this.target.style.bottom = '';
+      this.target.style.width = this.target.style.height = '';
+      this._shouldPosition = null;
+    },
+
+    tapHandler: function(e) {
+      // closeSelector takes precedence since closeAttribute has a default non-null value.
+      if (e.target &&
+          (this.closeSelector && e.target.matches(this.closeSelector)) ||
+          (this.closeAttribute && e.target.hasAttribute(this.closeAttribute))) {
+        this.toggle();
+      } else {
+        if (this.autoCloseJob) {
+          this.autoCloseJob.stop();
+          this.autoCloseJob = null;
+        }
+      }
+    },
+    
+    // We use the traditional approach of capturing events on document
+    // to to determine if the overlay needs to close. However, due to 
+    // ShadowDOM event retargeting, the event target is not useful. Instead
+    // of using it, we attempt to close asynchronously and prevent the close
+    // if a tap event is immediately heard on the target.
+    // TODO(sorvell): This approach will not work with modal. For
+    // this we need a scrim.
+    captureHandler: function(e) {
+      if (!this.autoCloseDisabled && (currentOverlay() == this)) {
+        this.autoCloseJob = this.job(this.autoCloseJob, function() {
+          this.close();
+        });
+      }
+    },
+
+    keydownHandler: function(e) {
+      if (!this.autoCloseDisabled && (e.keyCode == this.keyHelper.ESCAPE_KEY)) {
+        this.close();
+        e.stopPropagation();
+      }
+    },
+
+    /**
+     * Extensions of core-overlay should implement the `resizeHandler`
+     * method to adjust the size and position of the overlay when the 
+     * browser window resizes.
+     * @method resizeHandler
+     */
+    resizeHandler: function() {
+      this.updateTargetDimensions();
+    },
+
+    // TODO(sorvell): these utility methods should not be here.
+    addElementListenerList: function(node, events) {
+      for (var i in events) {
+        this.addElementListener(node, i, events[i]);
+      }
+    },
+
+    removeElementListenerList: function(node, events) {
+      for (var i in events) {
+        this.removeElementListener(node, i, events[i]);
+      }
+    },
+
+    enableElementListener: function(enable, node, event, methodName, capture) {
+      if (enable) {
+        this.addElementListener(node, event, methodName, capture);
+      } else {
+        this.removeElementListener(node, event, methodName, capture);
+      }
+    },
+
+    addElementListener: function(node, event, methodName, capture) {
+      var fn = this._makeBoundListener(methodName);
+      if (node && fn) {
+        Polymer.addEventListener(node, event, fn, capture);
+      }
+    },
+
+    removeElementListener: function(node, event, methodName, capture) {
+      var fn = this._makeBoundListener(methodName);
+      if (node && fn) {
+        Polymer.removeEventListener(node, event, fn, capture);
+      }
+    },
+
+    _makeBoundListener: function(methodName) {
+      var self = this, method = this[methodName];
+      if (!method) {
+        return;
+      }
+      var bound = '_bound' + methodName;
+      if (!this[bound]) {
+        this[bound] = function(e) {
+          method.call(self, e);
+        }
+      }
+      return this[bound];
+    },
+  });
+
+  function forcePolyfillRender(target) {
+    if (window.ShadowDOMPolyfill) {
+      target.offsetHeight;
+    }
+  }
+
+  // TODO(sorvell): This should be an element with private state so it can
+  // be independent of overlay.
+  // track overlays for z-index and focus managemant
+  var overlays = [];
+  function addOverlay(overlay) {
+    var z0 = currentOverlayZ();
+    overlays.push(overlay);
+    var z1 = currentOverlayZ();
+    if (z1 <= z0) {
+      applyOverlayZ(overlay, z0);
+    }
+  }
+
+  function removeOverlay(overlay) {
+    var i = overlays.indexOf(overlay);
+    if (i >= 0) {
+      overlays.splice(i, 1);
+      setZ(overlay, '');
+    }
+  }
+  
+  function applyOverlayZ(overlay, aboveZ) {
+    setZ(overlay.target, aboveZ + 2);
+  }
+  
+  function setZ(element, z) {
+    element.style.zIndex = z;
+  }
+
+  function currentOverlay() {
+    return overlays[overlays.length-1];
+  }
+  
+  var DEFAULT_Z = 10;
+  
+  function currentOverlayZ() {
+    var z;
+    var current = currentOverlay();
+    if (current) {
+      var z1 = window.getComputedStyle(current.target).zIndex;
+      if (!isNaN(z1)) {
+        z = Number(z1);
+      }
+    }
+    return z || DEFAULT_Z;
+  }
+  
+  function focusOverlay() {
+    var current = currentOverlay();
+    // We have to be careful to focus the next overlay _after_ any current
+    // transitions are complete (due to the state being toggled prior to the
+    // transition). Otherwise, we risk infinite recursion when a transitioning
+    // (closed) overlay becomes the current overlay.
+    //
+    // NOTE: We make the assumption that any overlay that completes a transition
+    // will call into focusOverlay to kick the process back off. Currently:
+    // transitionend -> applyFocus -> focusOverlay.
+    if (current && !current.transitioning) {
+      current.applyFocus();
+    }
+  }
+
+  var backdrops = [];
+  function trackBackdrop(element) {
+    if (element.opened) {
+      backdrops.push(element);
+    } else {
+      var i = backdrops.indexOf(element);
+      if (i >= 0) {
+        backdrops.splice(i, 1);
+      }
+    }
+  }
+
+  function getBackdrops() {
+    return backdrops;
+  }
+})();
+</script>
+</polymer-element>
+
+
+
+
+
+
+
+
+
+<script>
+// This empty script is here to workaround issue
+// https://github.com/dart-lang/core-elements/issues/11
+</script>
+
+<polymer-element name="paper-shadow">
+
+  <template>
+
+    <style no-shim="">.paper-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.paper-shadow-animated.paper-shadow {
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.paper-shadow-top-z-1 {
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+}
+
+.paper-shadow-bottom-z-1 {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.paper-shadow-top-z-2 {
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.paper-shadow-bottom-z-2 {
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+}
+
+.paper-shadow-top-z-3 {
+  box-shadow: 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.paper-shadow-bottom-z-3 {
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+}
+
+.paper-shadow-top-z-4 {
+  box-shadow: 0 25px 55px 0 rgba(0, 0, 0, 0.21);
+}
+
+.paper-shadow-bottom-z-4 {
+  box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22);
+}
+
+.paper-shadow-top-z-5 {
+  box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+}
+
+.paper-shadow-bottom-z-5 {
+  box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2);
+}
+
+.paper-shadow-animate-z-1-z-2.paper-shadow-top {
+  -webkit-transition: none;
+  -webkit-animation: animate-shadow-top-z-1-z-2 0.7s infinite alternate;
+}
+
+.paper-shadow-animate-z-1-z-2 .paper-shadow-bottom {
+  -webkit-transition: none;
+  -webkit-animation: animate-shadow-bottom-z-1-z-2 0.7s infinite alternate;
+}
+
+@-webkit-keyframes animate-shadow-top-z-1-z-2 {
+  0% {
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+  }
+  100% {
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+}
+
+@-webkit-keyframes animate-shadow-bottom-z-1-z-2 {
+  0% {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  }
+  100% {
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  }
+}</style>
+
+  </template>
+
+  <script>
+    Polymer('paper-shadow', {
+
+      publish: {
+        /**
+         * If set, the shadow is applied to this node.
+         *
+         * @attribute target
+         * @type Element
+         * @default null
+         */
+        target: {value: null, reflect: true},
+
+        /**
+         * The z-depth of this shadow, from 0-5.
+         *
+         * @attribute z
+         * @type number
+         * @default 1
+         */
+        z: {value: 1, reflect: true},
+
+        /**
+         * If true, the shadow animates between z-depth changes.
+         *
+         * @attribute animated
+         * @type boolean
+         * @default false
+         */
+        animated: {value: false, reflect: true},
+
+        /**
+         * Workaround: getComputedStyle is wrong sometimes so `paper-shadow`
+         * may overwrite the `position` CSS property. Set this property to
+         * true to prevent this.
+         *
+         * @attribute hasPosition
+         * @type boolean
+         * @default false
+         */
+        hasPosition: {value: false}
+      },
+
+      // NOTE: include template so that styles are loaded, but remove
+      // so that we can decide dynamically what part to include
+      registerCallback: function(polymerElement) {
+        var template = polymerElement.querySelector('template');
+        this._style = template.content.querySelector('style');
+        this._style.removeAttribute('no-shim');
+      },
+
+      fetchTemplate: function() {
+        return null;
+      },
+
+      attached: function() {
+        this.installScopeStyle(this._style);
+
+        // If no target is bound at attach, default the target to the parent
+        // element or shadow host.
+        if (!this.target) {
+          if (!this.parentElement && this.parentNode.host) {
+            this.target = this.parentNode.host;
+          } else if (this.parentElement && (window.ShadowDOMPolyfill ? this.parentElement !== wrap(document.body) : this.parentElement !== document.body)) {
+            this.target = this.parentElement;
+          }
+        }
+      },
+
+      targetChanged: function(old) {
+        if (old) {
+          this.removeShadow(old);
+        }
+        if (this.target) {
+          this.addShadow(this.target);
+        }
+      },
+
+      zChanged: function(old) {
+        if (this.target && this.target._paperShadow) {
+          var shadow = this.target._paperShadow;
+          ['top', 'bottom'].forEach(function(s) {
+            shadow[s].classList.remove('paper-shadow-' + s + '-z-' + old);
+            shadow[s].classList.add('paper-shadow-' + s + '-z-' + this.z);
+          }.bind(this));
+        }
+      },
+
+      animatedChanged: function() {
+        if (this.target && this.target._paperShadow) {
+          var shadow = this.target._paperShadow;
+          ['top', 'bottom'].forEach(function(s) {
+            if (this.animated) {
+              shadow[s].classList.add('paper-shadow-animated');
+            } else {
+              shadow[s].classList.remove('paper-shadow-animated');
+            }
+          }.bind(this));
+        }
+      },
+
+      addShadow: function(node) {
+        if (node._paperShadow) {
+          return;
+        }
+
+        var computed = getComputedStyle(node);
+        if (!this.hasPosition && computed.position === 'static') {
+          node.style.position = 'relative';
+        }
+        node.style.overflow = 'visible';
+
+        // Both the top and bottom shadows are children of the target, so
+        // it does not affect the classes and CSS properties of the target.
+        ['top', 'bottom'].forEach(function(s) {
+          var inner = (node._paperShadow && node._paperShadow[s]) || document.createElement('div');
+          inner.classList.add('paper-shadow');
+          inner.classList.add('paper-shadow-' + s + '-z-' + this.z);
+          if (this.animated) {
+            inner.classList.add('paper-shadow-animated');
+          }
+
+          if (node.shadowRoot) {
+            node.shadowRoot.insertBefore(inner, node.shadowRoot.firstChild);
+          } else {
+            node.insertBefore(inner, node.firstChild);
+          }
+
+          node._paperShadow = node._paperShadow || {};
+          node._paperShadow[s] = inner;
+        }.bind(this));
+
+      },
+
+      removeShadow: function(node) {
+        if (!node._paperShadow) {
+          return;
+        }
+
+        ['top', 'bottom'].forEach(function(s) {
+          node._paperShadow[s].remove();
+        });
+        node._paperShadow = null;
+
+        node.style.position = null;
+      }
+
+    });
+  </script>
+</polymer-element>
+<polymer-element name="paper-dialog" attributes="opened heading transition autoCloseDisabled backdrop layered closeSelector" role="dialog">
+
+  <template>
+
+    <style>:host {
+  background: white;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+}
+
+#container {
+  overflow: hidden;
+}
+
+#main {
+  height: auto;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  padding: 24px;
+  overflow: auto;
+}
+
+h1 {
+  margin: 0;
+}
+
+#actions {
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
+  padding: 4px 16px 20px;
+}
+
+polymer-next-selector { content: ':host > *'; }
+::content > * {
+  font: inherit;
+  border: 0;
+}
+</style>
+
+    <div id="shadow">
+      <paper-shadow z="3" hasposition=""></paper-shadow>
+    </div>
+
+    <core-overlay id="overlay" opened="{{opened}}" autoclosedisabled?="{{autoCloseDisabled}}" backdrop?="{{backdrop}}" layered?="{{layered}}" target="{{}}" sizingtarget="{{$.container}}" closeselector="{{closeSelector}}" transition="{{transition}}" margin="20"></core-overlay>
+
+    <div id="container" layout="" vertical="">
+
+      <div id="actions" layout="" horizontal="">
+        <content select="[dismissive]"></content>
+        <div flex="" auto=""></div>
+        <content select="[affirmative]"></content>
+      </div>
+
+      <div id="main" flex="" auto="">
+        <h1>{{heading}}</h1>
+        <content></content>
+      </div>
+
+    </div>
+
+  </template>
+
+  <script>
+
+    Polymer('paper-dialog', {
+
+      /**
+       * Set opened to true to show the dialog and to false to hide it.
+       * A dialog may be made intially opened by setting its opened attribute.
+
+       * @attribute opened
+       * @type boolean
+       * @default false
+       */
+      opened: false,
+
+      /**
+       * If true, the dialog has a backdrop darkening the rest of the screen.
+       * The backdrop element is attached to the document body and may be styled
+       * with the class `core-overlay-backdrop`. When opened the `core-opened`
+       * class is applied.
+       *
+       * @attribute backdrop
+       * @type boolean
+       * @default false
+       */
+      backdrop: false,
+
+      /**
+       * If true, the dialog is guaranteed to display above page content.
+       *
+       * @attribute layered
+       * @type boolean
+       * @default false
+      */
+      layered: false,
+
+      /**
+       * By default a dialog will close automatically if the user
+       * taps outside it or presses the escape key. Disable this
+       * behavior by setting the `autoCloseDisabled` property to true.
+       * @attribute autoCloseDisabled
+       * @type boolean
+       * @default false
+       */
+      autoCloseDisabled: false,
+
+      /**
+       * This property specifies a selector matching elements that should
+       * close the dialog on tap.
+       *
+       * @attribute closeSelector
+       * @type string
+       * @default ""
+       */
+      closeSelector: '[dismissive],[affirmative]',
+
+      /**
+       * @attribute heading
+       * @type string
+       * @default ''
+       */
+      heading: '',
+
+      /**
+       * Set this property to the id of a <core-transition> element to specify
+       * the transition to use when opening/closing this dialog.
+       *
+       * @attribute transition
+       * @type string
+       * @default ''
+       */
+      transition: '',
+
+      /**
+       * Toggle the dialog's opened state.
+       * @method toggle
+       */
+      toggle: function() {
+        this.$.overlay.toggle();
+      },
+
+      headingChanged: function() {
+        this.setAttribute('aria-label', this.heading);
+      }
+
+    });
+
+  </script>
+
+</polymer-element>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<polymer-element name="core-iconset" extends="core-meta" attributes="src width icons iconSize">
+  
+  <script>
+  
+    Polymer('core-iconset', {
+  
+      /**
+       * The URL of the iconset image.
+       *
+       * @attribute src
+       * @type string
+       * @default ''
+       */
+      src: '',
+
+      /**
+       * The width of the iconset image. This must only be specified if the
+       * icons are arranged into separate rows inside the image.
+       *
+       * @attribute width
+       * @type number
+       * @default 0
+       */
+      width: 0,
+
+      /**
+       * A space separated list of names corresponding to icons in the iconset
+       * image file. This list must be ordered the same as the icon images
+       * in the image file.
+       *
+       * @attribute icons
+       * @type string
+       * @default ''
+       */
+      icons: '',
+
+      /**
+       * The size of an individual icon. Note that icons must be square.
+       *
+       * @attribute iconSize
+       * @type number
+       * @default 24
+       */
+      iconSize: 24,
+
+      /**
+       * The horizontal offset of the icon images in the inconset src image.
+       * This is typically used if the image resource contains additional images
+       * beside those intended for the iconset.
+       *
+       * @attribute offsetX
+       * @type number
+       * @default 0
+       */
+      offsetX: 0,
+      /**
+       * The vertical offset of the icon images in the inconset src image.
+       * This is typically used if the image resource contains additional images
+       * beside those intended for the iconset.
+       *
+       * @attribute offsetY
+       * @type number
+       * @default 0
+       */
+      offsetY: 0,
+      type: 'iconset',
+
+      created: function() {
+        this.iconMap = {};
+        this.iconNames = [];
+        this.themes = {};
+      },
+  
+      ready: function() {
+        // TODO(sorvell): ensure iconset's src is always relative to the main
+        // document
+        if (this.src && (this.ownerDocument !== document)) {
+          this.src = this.resolvePath(this.src, this.ownerDocument.baseURI);
+        }
+        this.super();
+        this.updateThemes();
+      },
+
+      iconsChanged: function() {
+        var ox = this.offsetX;
+        var oy = this.offsetY;
+        this.icons && this.icons.split(/\s+/g).forEach(function(name, i) {
+          this.iconNames.push(name);
+          this.iconMap[name] = {
+            offsetX: ox,
+            offsetY: oy
+          }
+          if (ox + this.iconSize < this.width) {
+            ox += this.iconSize;
+          } else {
+            ox = this.offsetX;
+            oy += this.iconSize;
+          }
+        }, this);
+      },
+
+      updateThemes: function() {
+        var ts = this.querySelectorAll('property[theme]');
+        ts && ts.array().forEach(function(t) {
+          this.themes[t.getAttribute('theme')] = {
+            offsetX: parseInt(t.getAttribute('offsetX')) || 0,
+            offsetY: parseInt(t.getAttribute('offsetY')) || 0
+          };
+        }, this);
+      },
+
+      // TODO(ffu): support retrived by index e.g. getOffset(10);
+      /**
+       * Returns an object containing `offsetX` and `offsetY` properties which
+       * specify the pixel locaion in the iconset's src file for the given
+       * `icon` and `theme`. It's uncommon to call this method. It is useful,
+       * for example, to manually position a css backgroundImage to the proper
+       * offset. It's more common to use the `applyIcon` method.
+       *
+       * @method getOffset
+       * @param {String|Number} icon The name of the icon or the index of the
+       * icon within in the icon image.
+       * @param {String} theme The name of the theme.
+       * @returns {Object} An object specifying the offset of the given icon 
+       * within the icon resource file; `offsetX` is the horizontal offset and
+       * `offsetY` is the vertical offset. Both values are in pixel units.
+       */
+      getOffset: function(icon, theme) {
+        var i = this.iconMap[icon];
+        if (!i) {
+          var n = this.iconNames[Number(icon)];
+          i = this.iconMap[n];
+        }
+        var t = this.themes[theme];
+        if (i && t) {
+          return {
+            offsetX: i.offsetX + t.offsetX,
+            offsetY: i.offsetY + t.offsetY
+          }
+        }
+        return i;
+      },
+
+      /**
+       * Applies an icon to the given element as a css background image. This
+       * method does not size the element, and it's often necessary to set 
+       * the element's height and width so that the background image is visible.
+       *
+       * @method applyIcon
+       * @param {Element} element The element to which the background is
+       * applied.
+       * @param {String|Number} icon The name or index of the icon to apply.
+       * @param {Number} scale (optional, defaults to 1) A scaling factor 
+       * with which the icon can be magnified.
+       * @return {Element} The icon element.
+       */
+      applyIcon: function(element, icon, scale) {
+        var offset = this.getOffset(icon);
+        scale = scale || 1;
+        if (element && offset) {
+          var icon = element._icon || document.createElement('div');
+          var style = icon.style;
+          style.backgroundImage = 'url(' + this.src + ')';
+          style.backgroundPosition = (-offset.offsetX * scale + 'px') + 
+             ' ' + (-offset.offsetY * scale + 'px');
+          style.backgroundSize = scale === 1 ? 'auto' :
+             this.width * scale + 'px';
+          if (icon.parentNode !== element) {
+            element.appendChild(icon);
+          }
+          return icon;
+        }
+      }
+
+    });
+
+  </script>
+
+</polymer-element>
+<style shim-shadowdom="">/* Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt */
+
+html /deep/ core-icon {
+  display: inline-block;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  fill: currentcolor;
+  position: relative;
+  height: 24px;
+  width: 24px;
+}</style><polymer-element name="core-icon" attributes="src icon alt">
+<script>
+(function() {
+  
+  // mono-state
+  var meta;
+  
+  Polymer('core-icon', {
+
+    /**
+     * The URL of an image for the icon. If the src property is specified,
+     * the icon property should not be.
+     *
+     * @attribute src
+     * @type string
+     * @default ''
+     */
+    src: '',
+
+    /**
+     * Specifies the icon name or index in the set of icons available in
+     * the icon's icon set. If the icon property is specified,
+     * the src property should not be.
+     *
+     * @attribute icon
+     * @type string
+     * @default ''
+     */
+    icon: '',
+
+    /**
+     * Alternative text content for accessibility support.
+     * If alt is present and not empty, it will set the element's role to img and add an aria-label whose content matches alt.
+     * If alt is present and is an empty string, '', it will hide the element from the accessibility layer
+     * If alt is not present, it will set the element's role to img and the element will fallback to using the icon attribute for its aria-label.
+     * 
+     * @attribute alt
+     * @type string
+     * @default ''
+     */
+    alt: null,
+
+    observe: {
+      'icon': 'updateIcon',
+      'alt': 'updateAlt'
+    },
+
+    defaultIconset: 'icons',
+
+    ready: function() {
+      if (!meta) {
+        meta = document.createElement('core-iconset');
+      }
+
+      // Allow user-provided `aria-label` in preference to any other text alternative.
+      if (this.hasAttribute('aria-label')) {
+        // Set `role` if it has not been overridden.
+        if (!this.hasAttribute('role')) {
+          this.setAttribute('role', 'img');
+        }
+        return;
+      }
+      this.updateAlt();
+    },
+
+    srcChanged: function() {
+      var icon = this._icon || document.createElement('div');
+      icon.textContent = '';
+      icon.setAttribute('fit', '');
+      icon.style.backgroundImage = 'url(' + this.src + ')';
+      icon.style.backgroundPosition = 'center';
+      icon.style.backgroundSize = '100%';
+      if (!icon.parentNode) {
+        this.appendChild(icon);
+      }
+      this._icon = icon;
+    },
+
+    getIconset: function(name) {
+      return meta.byId(name || this.defaultIconset);
+    },
+
+    updateIcon: function(oldVal, newVal) {
+      if (!this.icon) {
+        this.updateAlt();
+        return;
+      }
+      var parts = String(this.icon).split(':');
+      var icon = parts.pop();
+      if (icon) {
+        var set = this.getIconset(parts.pop());
+        if (set) {
+          this._icon = set.applyIcon(this, icon);
+          if (this._icon) {
+            this._icon.setAttribute('fit', '');
+          }
+        }
+      }
+      // Check to see if we're using the old icon's name for our a11y fallback
+      if (oldVal) {
+        if (oldVal.split(':').pop() == this.getAttribute('aria-label')) {
+          this.updateAlt();
+        }
+      }
+    },
+
+    updateAlt: function() {
+      // Respect the user's decision to remove this element from
+      // the a11y tree
+      if (this.getAttribute('aria-hidden')) {
+        return;
+      }
+
+      // Remove element from a11y tree if `alt` is empty, otherwise
+      // use `alt` as `aria-label`.
+      if (this.alt === '') {
+        this.setAttribute('aria-hidden', 'true');
+        if (this.hasAttribute('role')) {
+          this.removeAttribute('role');
+        }
+        if (this.hasAttribute('aria-label')) {
+          this.removeAttribute('aria-label');
+        }
+      } else {
+        this.setAttribute('aria-label', this.alt ||
+                                        this.icon.split(':').pop());
+        if (!this.hasAttribute('role')) {
+          this.setAttribute('role', 'img');
+        }
+        if (this.hasAttribute('aria-hidden')) {
+          this.removeAttribute('aria-hidden');
+        }
+      }
+    }
+
+  });
+  
+})();
+</script>
+
+</polymer-element>
+
+
+
+<script>
+// This empty script is here to workaround issue
+// https://github.com/dart-lang/core-elements/issues/11
+</script>
+
+<polymer-element name="paper-focusable" attributes="active focused disabled isToggle" tabindex="0" on-down="{{downAction}}" on-up="{{upAction}}" on-focus="{{focusAction}}" on-blur="{{blurAction}}" on-contextmenu="{{contextMenuAction}}">
+
+  <template>
+    <style>
+      :host([disabled]) {
+        pointer-events: none;
+      }
+    </style>
+    <content></content>
+  </template>
+
+  <script>
+    Polymer('paper-focusable', {
+
+      publish: {
+
+        /**
+         * If true, the button is currently active either because the
+         * user is holding down the button, or the button is a toggle
+         * and is currently in the active state.
+         *
+         * @attribute active
+         * @type boolean
+         * @default false
+         */
+        active: {value: false, reflect: true},
+
+        /**
+         * If true, the element currently has focus due to keyboard
+         * navigation.
+         *
+         * @attribute focused
+         * @type boolean
+         * @default false
+         */
+        focused: {value: false, reflect: true},
+
+        /**
+         * If true, the user is currently holding down the button.
+         *
+         * @attribute pressed
+         * @type boolean
+         * @default false
+         */
+        pressed: {value: false, reflect: true},
+
+        /**
+         * If true, the user cannot interact with this element.
+         *
+         * @attribute disabled
+         * @type boolean
+         * @default false
+         */
+        disabled: {value: false, reflect: true},
+
+        /**
+         * If true, the button toggles the active state with each tap.
+         * Otherwise, the button becomes active when the user is holding
+         * it down.
+         *
+         * @attribute isToggle
+         * @type boolean
+         * @default false
+         */
+        isToggle: {value: false, reflect: false}
+
+      },
+
+      disabledChanged: function() {
+        if (this.disabled) {
+          this.removeAttribute('tabindex');
+        } else {
+          this.setAttribute('tabindex', 0);
+        }
+      },
+
+      downAction: function() {
+        this.pressed = true;
+        this.focused = false;
+
+        if (this.isToggle) {
+          this.active = !this.active;
+        } else {
+          this.active = true;
+        }
+      },
+
+      // Pulling up the context menu for an item should focus it; but we need to
+      // be careful about how we deal with down/up events surrounding context
+      // menus. The up event typically does not fire until the context menu
+      // closes: so we focus immediately.
+      //
+      // This fires _after_ downAction.
+      contextMenuAction: function(e) {
+        // Note that upAction may fire _again_ on the actual up event.
+        this.upAction(e);
+        this.focusAction();
+      },
+
+      upAction: function() {
+        this.pressed = false;
+
+        if (!this.isToggle) {
+          this.active = false;
+        }
+      },
+
+      focusAction: function() {
+        if (!this.pressed) {
+          // Only render the "focused" state if the element gains focus due to
+          // keyboard navigation.
+          this.focused = true;
+        }
+      },
+
+      blurAction: function() {
+        this.focused = false;
+      }
+
+    });
+
+  </script>
+</polymer-element>
+
+
+<polymer-element name="paper-ripple" attributes="initialOpacity opacityDecayVelocity">
+<template>
+
+  <style>
+
+    :host {
+      display: block;
+      position: relative;
+    }
+
+    #canvas {
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    :host(.circle) #canvas {
+      border-radius: 50%;
+    }
+
+  </style>
+
+</template>
+<script>
+
+  (function() {
+
+    var waveMaxRadius = 150;
+    //
+    // INK EQUATIONS
+    //
+    function waveRadiusFn(touchDownMs, touchUpMs, anim) {
+      // Convert from ms to s.
+      var touchDown = touchDownMs / 1000;
+      var touchUp = touchUpMs / 1000;
+      var totalElapsed = touchDown + touchUp;
+      var ww = anim.width, hh = anim.height;
+      // use diagonal size of container to avoid floating point math sadness
+      var waveRadius = Math.min(Math.sqrt(ww * ww + hh * hh), waveMaxRadius) * 1.1 + 5;
+      var duration = 1.1 - .2 * (waveRadius / waveMaxRadius);
+      var tt = (totalElapsed / duration);
+
+      var size = waveRadius * (1 - Math.pow(80, -tt));
+      return Math.abs(size);
+    }
+
+    function waveOpacityFn(td, tu, anim) {
+      // Convert from ms to s.
+      var touchDown = td / 1000;
+      var touchUp = tu / 1000;
+      var totalElapsed = touchDown + touchUp;
+
+      if (tu <= 0) {  // before touch up
+        return anim.initialOpacity;
+      }
+      return Math.max(0, anim.initialOpacity - touchUp * anim.opacityDecayVelocity);
+    }
+
+    function waveOuterOpacityFn(td, tu, anim) {
+      // Convert from ms to s.
+      var touchDown = td / 1000;
+      var touchUp = tu / 1000;
+
+      // Linear increase in background opacity, capped at the opacity
+      // of the wavefront (waveOpacity).
+      var outerOpacity = touchDown * 0.3;
+      var waveOpacity = waveOpacityFn(td, tu, anim);
+      return Math.max(0, Math.min(outerOpacity, waveOpacity));
+    }
+
+    // Determines whether the wave should be completely removed.
+    function waveDidFinish(wave, radius, anim) {
+      var waveOpacity = waveOpacityFn(wave.tDown, wave.tUp, anim);
+      // If the wave opacity is 0 and the radius exceeds the bounds
+      // of the element, then this is finished.
+      if (waveOpacity < 0.01 && radius >= Math.min(wave.maxRadius, waveMaxRadius)) {
+        return true;
+      }
+      return false;
+    };
+
+    function waveAtMaximum(wave, radius, anim) {
+      var waveOpacity = waveOpacityFn(wave.tDown, wave.tUp, anim);
+      if (waveOpacity >= anim.initialOpacity && radius >= Math.min(wave.maxRadius, waveMaxRadius)) {
+        return true;
+      }
+      return false;
+    }
+
+    //
+    // DRAWING
+    //
+    function drawRipple(ctx, x, y, radius, innerColor, outerColor) {
+      if (outerColor) {
+        ctx.fillStyle = outerColor;
+        ctx.fillRect(0,0,ctx.canvas.width, ctx.canvas.height);
+      }
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+      ctx.fillStyle = innerColor;
+      ctx.fill();
+    }
+
+    //
+    // SETUP
+    //
+    function createWave(elem) {
+      var elementStyle = window.getComputedStyle(elem);
+      var fgColor = elementStyle.color;
+
+      var wave = {
+        waveColor: fgColor,
+        maxRadius: 0,
+        isMouseDown: false,
+        mouseDownStart: 0.0,
+        mouseUpStart: 0.0,
+        tDown: 0,
+        tUp: 0
+      };
+      return wave;
+    }
+
+    function removeWaveFromScope(scope, wave) {
+      if (scope.waves) {
+        var pos = scope.waves.indexOf(wave);
+        scope.waves.splice(pos, 1);
+      }
+    };
+
+    // Shortcuts.
+    var pow = Math.pow;
+    var now = Date.now;
+    if (window.performance && performance.now) {
+      now = performance.now.bind(performance);
+    }
+
+    function cssColorWithAlpha(cssColor, alpha) {
+        var parts = cssColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+        if (typeof alpha == 'undefined') {
+            alpha = 1;
+        }
+        if (!parts) {
+          return 'rgba(255, 255, 255, ' + alpha + ')';
+        }
+        return 'rgba(' + parts[1] + ', ' + parts[2] + ', ' + parts[3] + ', ' + alpha + ')';
+    }
+
+    function dist(p1, p2) {
+      return Math.sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
+    }
+
+    function distanceFromPointToFurthestCorner(point, size) {
+      var tl_d = dist(point, {x: 0, y: 0});
+      var tr_d = dist(point, {x: size.w, y: 0});
+      var bl_d = dist(point, {x: 0, y: size.h});
+      var br_d = dist(point, {x: size.w, y: size.h});
+      return Math.max(tl_d, tr_d, bl_d, br_d);
+    }
+
+    Polymer('paper-ripple', {
+
+      /**
+       * The initial opacity set on the wave.
+       *
+       * @attribute initialOpacity
+       * @type number
+       * @default 0.25
+       */
+      initialOpacity: 0.25,
+
+      /**
+       * How fast (opacity per second) the wave fades out.
+       *
+       * @attribute opacityDecayVelocity
+       * @type number
+       * @default 0.8
+       */
+      opacityDecayVelocity: 0.8,
+
+      backgroundFill: true,
+      pixelDensity: 2,
+
+      eventDelegates: {
+        down: 'downAction',
+        up: 'upAction'
+      },
+
+      attached: function() {
+        // create the canvas element manually becase ios
+        // does not render the canvas element if it is not created in the
+        // main document (component templates are created in a
+        // different document). See:
+        // https://bugs.webkit.org/show_bug.cgi?id=109073.
+        if (!this.$.canvas) {
+          var canvas = document.createElement('canvas');
+          canvas.id = 'canvas';
+          this.shadowRoot.appendChild(canvas);
+          this.$.canvas = canvas;
+        }
+      },
+
+      ready: function() {
+        this.waves = [];
+      },
+
+      setupCanvas: function() {
+        this.$.canvas.setAttribute('width', this.$.canvas.clientWidth * this.pixelDensity + "px");
+        this.$.canvas.setAttribute('height', this.$.canvas.clientHeight * this.pixelDensity + "px");
+        var ctx = this.$.canvas.getContext('2d');
+        ctx.scale(this.pixelDensity, this.pixelDensity);
+        if (!this._loop) {
+          this._loop = this.animate.bind(this, ctx);
+        }
+      },
+
+      downAction: function(e) {
+        this.setupCanvas();
+        var wave = createWave(this.$.canvas);
+
+        this.cancelled = false;
+        wave.isMouseDown = true;
+        wave.tDown = 0.0;
+        wave.tUp = 0.0;
+        wave.mouseUpStart = 0.0;
+        wave.mouseDownStart = now();
+
+        var width = this.$.canvas.width / 2; // Retina canvas
+        var height = this.$.canvas.height / 2;
+        var rect = this.getBoundingClientRect();
+        var touchX = e.x - rect.left;
+        var touchY = e.y - rect.top;
+
+        wave.startPosition = {x:touchX, y:touchY};
+
+        if (this.classList.contains("recenteringTouch")) {
+          wave.endPosition = {x: width / 2,  y: height / 2};
+          wave.slideDistance = dist(wave.startPosition, wave.endPosition);
+        }
+        wave.containerSize = Math.max(width, height);
+        wave.maxRadius = distanceFromPointToFurthestCorner(wave.startPosition, {w: width, h: height});
+        this.waves.push(wave);
+        requestAnimationFrame(this._loop);
+      },
+
+      upAction: function() {
+        for (var i = 0; i < this.waves.length; i++) {
+          // Declare the next wave that has mouse down to be mouse'ed up.
+          var wave = this.waves[i];
+          if (wave.isMouseDown) {
+            wave.isMouseDown = false
+            wave.mouseUpStart = now();
+            wave.mouseDownStart = 0;
+            wave.tUp = 0.0;
+            break;
+          }
+        }
+        this._loop && requestAnimationFrame(this._loop);
+      },
+
+      cancel: function() {
+        this.cancelled = true;
+      },
+
+      animate: function(ctx) {
+        var shouldRenderNextFrame = false;
+
+        // Clear the canvas
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+        var deleteTheseWaves = [];
+        // The oldest wave's touch down duration
+        var longestTouchDownDuration = 0;
+        var longestTouchUpDuration = 0;
+        // Save the last known wave color
+        var lastWaveColor = null;
+        // wave animation values
+        var anim = {
+          initialOpacity: this.initialOpacity,
+          opacityDecayVelocity: this.opacityDecayVelocity,
+          height: ctx.canvas.height,
+          width: ctx.canvas.width
+        }
+
+        for (var i = 0; i < this.waves.length; i++) {
+          var wave = this.waves[i];
+
+          if (wave.mouseDownStart > 0) {
+            wave.tDown = now() - wave.mouseDownStart;
+          }
+          if (wave.mouseUpStart > 0) {
+            wave.tUp = now() - wave.mouseUpStart;
+          }
+
+          // Determine how long the touch has been up or down.
+          var tUp = wave.tUp;
+          var tDown = wave.tDown;
+          longestTouchDownDuration = Math.max(longestTouchDownDuration, tDown);
+          longestTouchUpDuration = Math.max(longestTouchUpDuration, tUp);
+
+          // Obtain the instantenous size and alpha of the ripple.
+          var radius = waveRadiusFn(tDown, tUp, anim);
+          var waveAlpha =  waveOpacityFn(tDown, tUp, anim);
+          var waveColor = cssColorWithAlpha(wave.waveColor, waveAlpha);
+          lastWaveColor = wave.waveColor;
+
+          // Position of the ripple.
+          var x = wave.startPosition.x;
+          var y = wave.startPosition.y;
+
+          // Ripple gravitational pull to the center of the canvas.
+          if (wave.endPosition) {
+
+            // This translates from the origin to the center of the view  based on the max dimension of  
+            var translateFraction = Math.min(1, radius / wave.containerSize * 2 / Math.sqrt(2) );
+
+            x += translateFraction * (wave.endPosition.x - wave.startPosition.x);
+            y += translateFraction * (wave.endPosition.y - wave.startPosition.y);
+          }
+
+          // If we do a background fill fade too, work out the correct color.
+          var bgFillColor = null;
+          if (this.backgroundFill) {
+            var bgFillAlpha = waveOuterOpacityFn(tDown, tUp, anim);
+            bgFillColor = cssColorWithAlpha(wave.waveColor, bgFillAlpha);
+          }
+
+          // Draw the ripple.
+          drawRipple(ctx, x, y, radius, waveColor, bgFillColor);
+
+          // Determine whether there is any more rendering to be done.
+          var maximumWave = waveAtMaximum(wave, radius, anim);
+          var waveDissipated = waveDidFinish(wave, radius, anim);
+          var shouldKeepWave = !waveDissipated || maximumWave;
+          var shouldRenderWaveAgain = !waveDissipated && !maximumWave;
+          shouldRenderNextFrame = shouldRenderNextFrame || shouldRenderWaveAgain;
+          if (!shouldKeepWave || this.cancelled) {
+            deleteTheseWaves.push(wave);
+          }
+       }
+
+        if (shouldRenderNextFrame) {
+          requestAnimationFrame(this._loop);
+        }
+
+        for (var i = 0; i < deleteTheseWaves.length; ++i) {
+          var wave = deleteTheseWaves[i];
+          removeWaveFromScope(this, wave);
+        }
+
+        if (!this.waves.length) {
+          // If there is nothing to draw, clear any drawn waves now because
+          // we're not going to get another requestAnimationFrame any more.
+          ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+          this._loop = null;
+        }
+      }
+
+    });
+
+  })();
+
+</script>
+</polymer-element>
+<polymer-element name="paper-button" extends="paper-focusable" attributes="label raisedButton iconSrc icon" role="button">
+
+  <template>
+
+    <style>:host {
+  display: inline-block;
+  position: relative;
+  border: 0;
+  background: transparent;
+  text-align: center;
+  font: inherit;
+  text-transform: uppercase;
+  outline: none;
+  border-radius: 3px;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+:host(.hover:hover) {
+  background: #e4e4e4;
+}
+
+:host([raisedButton]) {
+  background: #dfdfdf;
+}
+
+:host([raisedButton].hover:hover) {
+  background: #d6d6d6;
+}
+
+:host([disabled]) {
+  background: #eaeaea !important;
+  color: #a8a8a8 !important;
+  cursor: auto;
+}
+
+#shadow-container {
+  border-radius: inherit;
+}
+
+#clip {
+  position: relative;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+/*
+#focusBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  border-radius: inherit;
+  background: #c3c3c3;
+  -webkit-transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:host([focused]) #focusBg {
+  -webkit-transition: none;
+  transition: none;
+  -webkit-animation: focus-fade 0.7s infinite alternate;
+  animation: focus-fade 0.7s infinite alternate;
+}
+
+@-webkit-keyframes focus-fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes focus-fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+*/
+
+#ripple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  color: #d1d1d1;
+  pointer-events: none;
+}
+
+:host([raisedButton]) #ripple {
+  color: #cecece;
+}
+
+#ripple::shadow canvas {
+  top: 0;
+  left: 0;
+}
+
+#content {
+  /* needed to position the ink behind the content */
+  position: relative;
+}
+
+#icon {
+  margin: 8px;
+}
+
+#content > span {
+  display: inline-block;
+  margin: 0.5em;
+}</style>
+
+    <template if="{{raisedButton}}">
+      <div fit="" id="shadow-container">
+        <paper-shadow id="shadow" z="{{z}}" animated=""></paper-shadow>
+      </div>
+    </template>
+
+    <div id="clip">
+      <!-- <div id="focusBg"></div> -->
+      <paper-ripple id="ripple"></paper-ripple>
+      <div id="content">
+        <template if="{{iconSrc || icon}}">
+          <core-icon id="icon" src="{{iconSrc}}" icon="{{icon}}"></core-icon>
+        </template>
+        <template if="{{label}}">
+          <span>{{label}}</span>
+        </template>
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+    Polymer('paper-button', {
+
+      publish: {
+
+        /**
+         * The label of the button.
+         *
+         * @attribute label
+         * @type string
+         * @default ''
+         */
+        label: '',
+
+        /**
+         * If true, the button will be styled as a "raised" button.
+         *
+         * @attribute raisedButton
+         * @type boolean
+         * @default false
+         */
+        raisedButton: {value: false, reflect: true},
+
+        /**
+         * (optional) The URL of an image for an icon to use in the button.
+         * Should not use `icon` property if you are using this property.
+         *
+         * @attribute iconSrc
+         * @type string
+         * @default ''
+         */
+         iconSrc: '',
+
+         /**
+          * (optional) Specifies the icon name or index in the set of icons
+          * available in the icon set. If using this property, load the icon
+          * set separately where the icon is used. Should not use `src`
+          * if you are using this property.
+          *
+          * @attribute icon
+          * @type string
+          * @default ''
+          */
+         icon: ''
+
+      },
+
+      z: 1,
+
+      attached: function() {
+        if (this.textContent && !this.textContent.match(/\s+/)) {
+          console.warn('Using textContent to label the button is deprecated. Use the "label" property instead');
+          this.label = this.textContent;
+        }
+      },
+
+      activeChanged: function() {
+        this.super();
+
+        if (this.active) {
+          // FIXME: remove when paper-ripple can have a default 'down' state.
+          if (!this.lastEvent) {
+            var rect = this.getBoundingClientRect();
+            this.lastEvent = {
+              x: rect.left + rect.width / 2,
+              y: rect.top + rect.height / 2
+            }
+          }
+          this.$.ripple.downAction(this.lastEvent);
+        } else {
+          this.$.ripple.upAction();
+        }
+        this.adjustZ();
+      },
+
+      focusedChanged: function() {
+        this.super();
+        this.adjustZ();
+      },
+
+      disabledChanged: function() {
+        this.super();
+        this.adjustZ();
+      },
+
+      // waitForSpillCompleted: function(callback) {
+      //   this.async(callback, null, (this.$.ink.spillCompleted ? 0 : this.duration));
+      // },
+
+      // resetInk: function() {
+      //   this.active = false;
+      //   this.$.ink.reset();
+      // },
+
+      insideButton: function(x, y) {
+        var rect = this.getBoundingClientRect();
+        return (rect.left <= x) && (x <= rect.right) && (rect.top <= y) && (y <= rect.bottom);
+      },
+
+      adjustZ: function() {
+        if (this.focused) {
+          this.classList.add('paper-shadow-animate-z-1-z-2');
+        } else {
+          this.classList.remove('paper-shadow-animate-z-1-z-2');
+
+          if (this.active) {
+            this.z = 2;
+          } else if (this.disabled) {
+            this.z = 0;
+          } else {
+            this.z = 1;
+          }
+
+        }
+      },
+
+      downAction: function(e) {
+        this.super(e);
+        this.lastEvent = e;
+      },
+
+      labelChanged: function() {
+        this.setAttribute('aria-label', this.label);
+      }
+
+    });
+  </script>
+</polymer-element>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<polymer-element name="core-input" on-focus="{{focusAction}}">
+
+  <template>
+
+    <style>:host {
+  display: inline-block;
+  text-align: inherit;
+  color: #ccc;
+  position: relative;
+  width: 20em;
+}
+
+:host:hover {
+  cursor: text;
+}
+
+input,
+textarea {
+  font: inherit;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+textarea {
+  resize: none;
+}
+
+textarea[fit] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}</style>
+
+    <template if="{{multiline}}">
+      <textarea id="input" value="{{inputValue}}" rows="{{rows}}" fit?="{{rows === 'fit'}}" disabled?="{{disabled}}" placeholder="{{placeholder}}" autofocus?="{{autofocus}}" required?="{{required}}" readonly?="{{readonly}}" aria-label="{{label || placeholder}}" aria-invalid="{{invalid}}" on-change="{{inputChangeAction}}" on-focus="{{inputFocusAction}}" on-blur="{{inputBlurAction}}"></textarea>
+    </template>
+
+    <template if="{{!multiline}}">
+      <input id="input" value="{{inputValue}}" disabled?="{{disabled}}" type="{{type}}" placeholder="{{placeholder}}" autofocus?="{{autofocus}}" required?="{{required}}" readonly?="{{readonly}}" pattern="{{pattern}}" min="{{min}}" max="{{max}}" step="{{step}}" maxlength="{{maxlength}}" aria-label="{{label || placeholder}}" aria-invalid="{{invalid}}" on-keydown="{{keydownAction}}" on-change="{{inputChangeAction}}" on-focus="{{inputFocusAction}}" on-blur="{{inputBlurAction}}">
+    </template>
+
+  </template>
+
+  <script>
+
+    Polymer('core-input', {
+      publish: {
+        /**
+         * Placeholder text that hints to the user what can be entered in
+         * the input.
+         *
+         * @attribute placeholder
+         * @type string
+         * @default ''
+         */
+        placeholder: '',
+  
+        /**
+         * If true, this input cannot be focused and the user cannot change
+         * its value.
+         *
+         * @attribute disabled
+         * @type boolean
+         * @default false
+         */
+        disabled: false,
+  
+        /**
+         * If true, the user cannot modify the value of the input.
+         *
+         * @attribute readonly
+         * @type boolean
+         * @default false
+         */
+        readonly: false,
+
+        /**
+         * If true, this input will automatically gain focus on page load.
+         *
+         * @attribute autofocus
+         * @type boolean
+         * @default false
+         */
+        autofocus: false,
+
+        /**
+         * If true, this input accepts multi-line input like a `<textarea>`
+         *
+         * @attribute multiline
+         * @type boolean
+         * @default false
+         */
+        multiline: false,
+  
+        /**
+         * (multiline only) The height of this text input in rows. The input
+         * will scroll internally if more input is entered beyond the size
+         * of the component. This property is meaningless if multiline is
+         * false. You can also set this property to "fit" and size the
+         * component with CSS to make the input fit the CSS size.
+         *
+         * @attribute rows
+         * @type number|'fit'
+         * @default 'fit'
+         */
+        rows: 'fit',
+  
+        /**
+         * The current value of this input. Changing inputValue programmatically
+         * will cause value to be out of sync. Instead, change value directly
+         * or call commit() after changing inputValue.
+         *
+         * @attribute inputValue
+         * @type string
+         * @default ''
+         */
+        inputValue: '',
+  
+        /**
+         * The value of the input committed by the user, either by changing the
+         * inputValue and blurring the input, or by hitting the `enter` key.
+         *
+         * @attribute value
+         * @type string
+         * @default ''
+         */
+        value: '',
+
+        /**
+         * Set the input type. Not supported for `multiline`.
+         *
+         * @attribute type
+         * @type string
+         * @default text
+         */
+        type: 'text',
+
+        /**
+         * If true, the input is invalid if its value is null.
+         *
+         * @attribute required
+         * @type boolean
+         * @default false
+         */
+        required: false,
+
+        /**
+         * A regular expression to validate the input value against. See
+         * https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
+         * for more info. Not supported if `multiline` is true.
+         *
+         * @attribute pattern
+         * @type string
+         * @default '.*'
+         */
+        // FIXME(yvonne): The default is set to .* because we can't bind to pattern such
+        // that the attribute is unset if pattern is null.
+        pattern: '.*',
+
+        /**
+         * If set, the input is invalid if the value is less than this property. See
+         * https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
+         * for more info. Not supported if `multiline` is true.
+         *
+         * @attribute min
+         */
+        min: null,
+
+        /**
+         * If set, the input is invalid if the value is greater than this property. See
+         * https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
+         * for more info. Not supported if `multiline` is true.
+         *
+         * @attribute max
+         */
+        max: null,
+
+        /**
+         * If set, the input is invalid if the value is not `min` plus an integral multiple
+         * of this property. See
+         * https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
+         * for more info. Not supported if `multiline` is true.
+         *
+         * @attribute step
+         */
+        step: null,
+
+        /**
+         * The maximum length of the input value.
+         *
+         * @attribute maxlength
+         * @type number
+         */
+        maxlength: null,
+  
+        /**
+         * If this property is true, the text input's inputValue failed validation.
+         *
+         * @attribute invalid
+         * @type boolean
+         * @default false
+         */
+        invalid: false
+      },
+
+      ready: function() {
+        this.handleTabindex(this.getAttribute('tabindex'));
+      },
+
+      invalidChanged: function() {
+        this.classList.toggle('invalid', this.invalid);
+        this.fire('input-'+ (this.invalid ? 'invalid' : 'valid'), {value: this.inputValue});
+      },
+
+      inputValueChanged: function() {
+        this.updateValidity_();
+      },
+
+      valueChanged: function() {
+        this.inputValue = this.value;
+      },
+
+      requiredChanged: function() {
+        this.updateValidity_();
+      },
+
+      attributeChanged: function(attr, oldVal, curVal) {
+        if (attr === 'tabindex') {
+          this.handleTabindex(curVal);
+        }
+      },
+
+      handleTabindex: function(tabindex) {
+        if (tabindex > 0) {
+          this.$.input.setAttribute('tabindex', -1);
+        } else {
+          this.$.input.removeAttribute('tabindex');
+        }
+      },
+
+      /**
+       * Commits the inputValue to value.
+       *
+       * @method commit
+       */
+      commit: function() {
+         this.value = this.inputValue;
+      },
+
+      updateValidity_: function() {
+        if (this.$.input.willValidate) {
+          this.invalid = !this.$.input.validity.valid;
+        }
+      },
+
+      keydownAction: function() {
+        // for type = number, the value is the empty string unless the input is a valid number.
+        // FIXME(yvonne): check other types
+        if (this.type === 'number') {
+          this.async(function() {
+            this.updateValidity_();
+          });
+        }
+      },
+
+      inputChangeAction: function() {
+        this.commit();
+        if (!window.ShadowDOMPolyfill) {
+          // re-fire event that does not bubble across shadow roots
+          this.fire('change', null, this);
+        }
+      },
+
+      focusAction: function(e) {
+        if (this.getAttribute('tabindex') > 0) {
+          // Forward focus to the inner input if tabindex is set on the element
+          // This will not cause an infinite loop because focus will not fire on the <input>
+          // again if it's already focused.
+          this.$.input.focus();
+        }
+      },
+
+      inputFocusAction: function(e) {
+        if (window.ShadowDOMPolyfill) {
+          // re-fire non-bubbling event if polyfill
+          this.fire('focus', null, this, false);
+        }
+      },
+
+      inputBlurAction: function() {
+        if (window.ShadowDOMPolyfill) {
+          // re-fire non-bubbling event
+          this.fire('blur', null, this, false);
+        }
+      },
+
+      blur: function() {
+        // forward blur method to the internal input / textarea element
+        this.$.input.blur();
+      },
+
+      click: function() {
+        // forward click method to the internal input / textarea element
+        this.$.input.click();
+      },
+
+      focus: function() {
+        // forward focus method to the internal input / textarea element
+        this.$.input.focus();
+      },
+
+      select: function() {
+        // forward select method to the internal input / textarea element
+        this.$.input.focus();
+      },
+
+      setSelectionRange: function(selectionStart, selectionEnd, selectionDirection) {
+        // forward setSelectionRange method to the internal input / textarea element
+        this.$.input.setSelectionRange(selectionStart, selectionEnd, selectionDirection);
+      },
+
+      setRangeText: function(replacement, start, end, selectMode) {
+        // forward setRangeText method to the internal input element
+        if (!this.multiline) {
+          this.$.input.setRangeText(replacement, start, end, selectMode);
+        }
+      },
+
+      stepDown: function(n) {
+        // forward stepDown method to the internal input element
+        if (!this.multiline) {
+          this.$.input.stepDown(n);
+        }
+      },
+
+      stepUp: function(n) {
+        // forward stepUp method to the internal input element
+        if (!this.multiline) {
+          this.$.input.stepUp(n);
+        }
+      },
+
+      get willValidate() {
+        return this.$.input.willValidate;
+      },
+
+      get validity() {
+        return this.$.input.validity;
+      },
+
+      get validationMessage() {
+        return this.$.input.validationMessage;
+      },
+
+      checkValidity: function() {
+        var r = this.$.input.checkValidity();
+        this.updateValidity_();
+        return r;
+      },
+
+      setCustomValidity: function(message) {
+        this.$.input.setCustomValidity(message);
+        this.updateValidity_();
+      }
+
+    });
+  </script>
+
+</polymer-element>
+<script>
+// This empty script is here to workaround issue
+// https://github.com/dart-lang/core-elements/issues/11
+</script>
+
+
+
+
+<polymer-element name="core-style" hidden="">
+<script>
+(function() {
+
+window.CoreStyle = window.CoreStyle || {
+  g: {},
+  list: {},
+  refMap: {}
+};
+
+Polymer('core-style', {
+  /**
+   * The `id` property should be set if the `core-style` is a producer
+   * of styles. In this case, the `core-style` should have text content
+   * that is cssText.
+   *
+   * @attribute id
+   * @type string
+   * @default ''
+   */
+
+
+  publish: {
+    /**
+     * The `ref` property should be set if the `core-style` element is a 
+     * consumer of styles. Set it to the `id` of the desired `core-style`
+     * element.
+     *
+     * @attribute ref
+     * @type string
+     * @default ''
+     */
+    ref: ''
+  },
+
+  // static
+  g: CoreStyle.g,
+  refMap: CoreStyle.refMap,
+
+  /**
+   * The `list` is a map of all `core-style` producers stored by `id`. It 
+   * should be considered readonly. It's useful for nesting one `core-style`
+   * inside another.
+   *
+   * @attribute list
+   * @type object (readonly)
+   * @default {map of all `core-style` producers}
+   */
+  list: CoreStyle.list,
+
+  // if we have an id, we provide style
+  // if we have a ref, we consume/require style
+  ready: function() {
+    if (this.id) {
+      this.provide();
+    } else {
+      this.registerRef(this.ref);
+      if (!window.ShadowDOMPolyfill) {
+        this.require();
+      }  
+    }
+  },
+
+  // can't shim until attached if using SD polyfill because need to find host
+  attached: function() {
+    if (!this.id && window.ShadowDOMPolyfill) {
+      this.require();
+    }
+  },
+
+  /****** producer stuff *******/
+
+  provide: function() {
+    this.register();
+    // we want to do this asap, especially so we can do so before definitions
+    // that use this core-style are registered.
+    if (this.textContent) {
+      this._completeProvide();
+    } else {
+      this.async(this._completeProvide);
+    }
+  },
+
+  register: function() {
+    var i = this.list[this.id];
+    if (i) {
+      if (!Array.isArray(i)) {
+        this.list[this.id] = [i];
+      }
+      this.list[this.id].push(this);
+    } else {
+      this.list[this.id] = this;  
+    }
+  },
+
+  // stamp into a shadowRoot so we can monitor dom of the bound output
+  _completeProvide: function() {
+    this.createShadowRoot();
+    this.domObserver = new MutationObserver(this.domModified.bind(this))
+        .observe(this.shadowRoot, {subtree: true, 
+        characterData: true, childList: true});
+    this.provideContent();
+  },
+
+  provideContent: function() {
+    this.ensureTemplate();
+    this.shadowRoot.textContent = '';
+    this.shadowRoot.appendChild(this.instanceTemplate(this.template));
+    this.cssText = this.shadowRoot.textContent;
+  },
+
+  ensureTemplate: function() {
+    if (!this.template) {
+      this.template = this.querySelector('template:not([repeat]):not([bind])');
+      // move content into the template
+      if (!this.template) {
+        this.template = document.createElement('template');
+        var n = this.firstChild;
+        while (n) {
+          this.template.content.appendChild(n.cloneNode(true));
+          n = n.nextSibling;
+        }
+      }
+    }
+  },
+
+  domModified: function() {
+    this.cssText = this.shadowRoot.textContent;
+    this.notify();
+  },
+
+  // notify instances that reference this element
+  notify: function() {
+    var s$ = this.refMap[this.id];
+    if (s$) {
+      for (var i=0, s; (s=s$[i]); i++) {
+        s.require();
+      }
+    }
+  },
+
+  /****** consumer stuff *******/
+
+  registerRef: function(ref) {
+    //console.log('register', ref);
+    this.refMap[this.ref] = this.refMap[this.ref] || [];
+    this.refMap[this.ref].push(this);
+  },
+
+  applyRef: function(ref) {
+    this.ref = ref;
+    this.registerRef(this.ref);
+    this.require();
+  },
+
+  require: function() {
+    var cssText = this.cssTextForRef(this.ref);
+    //console.log('require', this.ref, cssText);
+    if (cssText) {
+      this.ensureStyleElement();
+      // do nothing if cssText has not changed
+      if (this.styleElement._cssText === cssText) {
+        return;
+      }
+      this.styleElement._cssText = cssText;
+      if (window.ShadowDOMPolyfill) {
+        this.styleElement.textContent = cssText;
+        cssText = Platform.ShadowCSS.shimStyle(this.styleElement,
+            this.getScopeSelector());
+      }
+      this.styleElement.textContent = cssText;
+    }
+  },
+
+  cssTextForRef: function(ref) {
+    var s$ = this.byId(ref);
+    var cssText = '';
+    if (s$) {
+      if (Array.isArray(s$)) {
+        var p = [];
+        for (var i=0, l=s$.length, s; (i<l) && (s=s$[i]); i++) {
+          p.push(s.cssText);
+        }
+        cssText = p.join('\n\n');
+      } else {
+        cssText = s$.cssText;
+      }
+    }
+    if (s$ && !cssText) {
+      console.warn('No styles provided for ref:', ref);
+    }
+    return cssText;
+  },
+
+  byId: function(id) {
+    return this.list[id];
+  },
+
+  ensureStyleElement: function() {
+    if (!this.styleElement) {
+      this.styleElement = window.ShadowDOMPolyfill ? 
+          this.makeShimStyle() :
+          this.makeRootStyle();
+    }
+    if (!this.styleElement) {
+      console.warn(this.localName, 'could not setup style.');
+    }
+  },
+
+  makeRootStyle: function() {
+    var style = document.createElement('style');
+    this.appendChild(style);
+    return style;
+  },
+
+  makeShimStyle: function() {
+    var host = this.findHost(this);
+    if (host) {
+      var name = host.localName;
+      var style = document.querySelector('style[' + name + '=' + this.ref +']');
+      if (!style) {
+        style = document.createElement('style');
+        style.setAttribute(name, this.ref);
+        document.head.appendChild(style);
+      }
+      return style;
+    }
+  },
+
+  getScopeSelector: function() {
+    if (!this._scopeSelector) {
+      var selector = '', host = this.findHost(this);
+      if (host) {
+        var typeExtension = host.hasAttribute('is');
+        var name = typeExtension ? host.getAttribute('is') : host.localName;
+        selector = Platform.ShadowCSS.makeScopeSelector(name, 
+            typeExtension);
+      }
+      this._scopeSelector = selector;
+    }
+    return this._scopeSelector;
+  },
+
+  findHost: function(node) {
+    while (node.parentNode) {
+      node = node.parentNode;
+    }
+    return node.host || wrap(document.documentElement);
+  },
+
+  /* filters! */
+  // TODO(dfreedm): add more filters!
+
+  cycle: function(rgb, amount) {
+    if (rgb.match('#')) {
+      var o = this.hexToRgb(rgb);
+      if (!o) {
+        return rgb;
+      }
+      rgb = 'rgb(' + o.r + ',' + o.b + ',' + o.g + ')';
+    }
+
+    function cycleChannel(v) {
+      return Math.abs((Number(v) - amount) % 255);
+    }
+
+    return rgb.replace(/rgb\(([^,]*),([^,]*),([^,]*)\)/, function(m, a, b, c) {
+      return 'rgb(' + cycleChannel(a) + ',' + cycleChannel(b) + ', ' 
+          + cycleChannel(c) + ')';
+    });
+  },
+
+  hexToRgb: function(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+  }
+
+});
+
+
+})();
+</script>
+</polymer-element>
+<script>
+// This empty script is here to workaround issue
+// https://github.com/dart-lang/core-elements/issues/11
+</script><core-style id="paper-input">
+
+#label.focused,
+#floatedLabel.focused {
+  color: {{g.paperInput.focusedColor}};
+}
+
+#underlineHighlight.focused,
+#caretInner {
+  background-color: {{g.paperInput.focusedColor}};
+}
+
+#error,
+:host(.invalid) #label.focused,
+:host(.invalid) #floatedLabel.focused {
+  color: {{g.paperInput.invalidColor}};
+}
+:host(.invalid) #underlineHighlight.focused,
+:host(.invalid) #caretInner {
+  background-color: {{g.paperInput.invalidColor}};
+}
+
+</core-style>
+
+<polymer-element name="paper-input" extends="core-input" attributes="label floatingLabel maxRows error" on-down="{{downAction}}" on-up="{{upAction}}">
+
+  <template>
+
+    <style>:host {
+  display: inline-block;
+  outline: none;
+  text-align: inherit;
+  color: #757575;
+}
+:host(:hover) {
+  cursor: text;
+}
+
+#container {
+  position: relative;
+}
+
+#inputClone,
+#minInputHeight,
+#maxInputHeight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  padding: 0.5em 0;
+}
+
+:host /deep/ input,
+:host /deep/ textarea {
+  font: inherit;
+  color: #000;
+  padding: 0;
+  /* Important to use margin here so the margin remains visible
+   * when textarea scrolls internally. */
+  margin: 0.5em 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+:host /deep/ input:invalid,
+:host /deep/ textarea:invalid {
+  box-shadow: none;
+}
+
+.host /deep/ textarea {
+  resize: none;
+}
+
+#floatedLabel {
+  font-size: 0.75em;
+  background: transparent;
+  white-space: nowrap;
+}
+#floatedLabel.hidden {
+  visibility: hidden;
+}
+#floatedLabel.focused {
+  visibility: visible;
+}
+
+#label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 0.5em 0;
+  background: transparent;
+  -moz-transform-origin: 0% 0%;
+  -webkit-transform-origin: 0% 0%;
+  transform-origin: 0% 0%;
+  pointer-events: none;
+}
+#label.hidden {
+  display: none;
+}
+#label.animating {
+  /* TODO: transforms are unprefixed in M36/ Remove when stable. */
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.2, 0, 0.03, 1);
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0.03, 1);
+}
+
+#labelSpan {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  max-width: 100%;
+}
+
+#errorContainer {
+  visibility: hidden;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+:host(.invalid) #errorContainer {
+  visibility: visible;
+}
+
+#error {
+  -webkit-flex: 1;
+  flex: 1;
+  font-size: 0.75em;
+  padding: 0.5em 0;
+}
+
+#errorIcon {
+  background-image: url(packages/paper_elements/src/paper-input/error-100.png);
+  background-size: 24px 24px;
+  height: 24px;
+  width: 24px;
+}
+
+
+@media (min-resolution: 2dppx) {
+  #errorIcon {
+    background-image: url(packages/paper_elements/src/paper-input/error-200.png);
+    background-size: 24px 24px;
+  }
+}
+
+#underlineContainer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+}
+
+:host([multiline]) #underlineContainer {
+  bottom: auto;
+}
+
+:host([multiline]) #underlineContainer.animating {
+  -webkit-transition: top 0.2s ease-in;
+  transition: top 0.2s ease-in;
+}
+
+#underline {
+  height: 1px;
+  background: #757575;
+  border-bottom-color: #757575;
+}
+
+:host([disabled]) #underline {
+  border-bottom: 1px dashed;
+  height: 0px;
+  background: transparent;
+}
+
+#underlineHighlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  -webkit-transform: scale(0,2);
+  transform: scale(0,2);
+}
+#underlineHighlight.pressed {
+  -webkit-transform: scale(0.1,2);
+  transform: scale(0.1,2);
+  /* TODO: transforms are unprefixed in M36/ Remove when stable. */
+  -webkit-transition: -webkit-transform 0.1s cubic-bezier(0.2, 0, 0.03, 1);
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0.03, 1);
+}
+#underlineHighlight.animating {
+  /* TODO: transforms are unprefixed in M36/ Remove when stable. */
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.2, 0, 0.03, 1);
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0.03, 1);
+}
+#underlineHighlight.focused {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+#caret {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  -moz-transform-origin: 0%;
+  -webkit-transform-origin-x: 0%;
+  transform-origin-x: 0%;
+  -webkit-transform: scaleX(1) translateX(10%);
+  transform: scaleX(1) translateX(10%);
+}
+#caret.animating {
+  display: block;
+   /* TODO: transforms are unprefixed in M36/ Remove when stable. */
+  -webkit-transition: -webkit-transform 0.2s ease-out, opacity 0.2s ease-out;
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0.03, 1);
+}
+#caret.focused {
+  display: block;
+  opacity: 0.75;
+  -webkit-transform: scaleX(0) translateX(0);
+  transform: scaleX(0) translateX(0);
+}
+#caretInner {
+  position: absolute;
+  top: 0.6em;
+  left: 0;
+  height: 1.2em;
+  width: 25%;
+}
+</style>
+
+    <core-style ref="paper-input"></core-style>
+
+    <div id="floatedLabel" class="hidden" hidden?="{{!floatingLabel}}"><span id="floatedLabelSpan">{{label}}</span></div>
+
+    <div id="container" on-transitionend="{{transitionEndAction}}" on-webkittransitionend="{{transitionEndAction}}">
+
+      <div id="label"><span id="labelSpan">{{label}}</span></div>
+
+      <div id="inputContainer">
+
+        <div id="inputClone">
+          <span id="inputCloneSpan" aria-hidden="true">&nbsp;</span>
+        </div>
+
+        <template if="{{multiline}}">
+          <div id="minInputHeight"></div>
+          <div id="maxInputHeight"></div>
+        </template>
+
+        <shadow></shadow>
+
+      </div>
+
+      <div id="underlineContainer">
+        <div id="underline"></div>
+        <div id="underlineHighlight" class="focusedColor"></div>
+      </div>
+
+      <div id="caret">
+        <div id="caretInner" class="focusedColor"></div>
+      </div>
+
+    </div>
+
+    <div id="errorContainer">
+      <div id="error" role="alert" aria-hidden="{{!invalid}}">{{error || validationMessage}}</div>
+      <div id="errorIcon"></div>
+    </div>
+
+  </template>
+
+  <script>
+
+  (function() {
+
+    var paperInput = CoreStyle.g.paperInput = CoreStyle.g.paperInput || {};
+    paperInput.focusedColor = '#4059a9';
+    paperInput.invalidColor = '#d34336';
+
+    Polymer('paper-input', {
+
+      /**
+       * The label for this input. It normally appears as grey text inside
+       * the text input and disappears once the user enters text.
+       *
+       * @attribute label
+       * @type string
+       * @default ''
+       */
+      label: '',
+
+      /**
+       * If true, the label will "float" above the text input once the
+       * user enters text instead of disappearing.
+       *
+       * @attribute floatingLabel
+       * @type boolean
+       * @default false
+       */
+      floatingLabel: false,
+
+      /**
+       * (multiline only) If set to a non-zero value, the height of this
+       * text input will grow with the value changes until it is maxRows
+       * rows tall. If the maximum size does not fit the value, the text
+       * input will scroll internally.
+       *
+       * @attribute maxRows
+       * @type number
+       * @default 0
+       */
+      maxRows: 0,
+
+      /**
+       * The message to display if the input value fails validation. If this
+       * is unset or the empty string, a default message is displayed depending
+       * on the type of validation error.
+       *
+       * @attribute error
+       * @type string
+       */
+      error: '',
+
+      focused: false,
+      pressed: false,
+
+      attached: function() {
+        if (this.multiline) {
+          this.resizeInput();
+          window.requestAnimationFrame(function() {
+            this.$.underlineContainer.classList.add('animating');
+          }.bind(this));
+        }
+      },
+
+      resizeInput: function() {
+        var height = this.$.inputClone.getBoundingClientRect().height;
+        var bounded = this.maxRows > 0 || this.rows > 0;
+        if (bounded) {
+          var minHeight = this.$.minInputHeight.getBoundingClientRect().height;
+          var maxHeight = this.$.maxInputHeight.getBoundingClientRect().height;
+          height = Math.max(minHeight, Math.min(height, maxHeight));
+        }
+        this.$.inputContainer.style.height = height + 'px';
+        this.$.underlineContainer.style.top = height + 'px';
+      },
+
+      prepareLabelTransform: function() {
+        var toRect = this.$.floatedLabelSpan.getBoundingClientRect();
+        var fromRect = this.$.labelSpan.getBoundingClientRect();
+        if (toRect.width !== 0) {
+          this.$.label.cachedTransform = 'scale(' + (toRect.width / fromRect.width) + ') ' +
+            'translateY(' + (toRect.bottom - fromRect.bottom) + 'px)';
+        }
+      },
+
+      toggleLabel: function(force) {
+        var v = force !== undefined ? force : this.inputValue;
+
+        if (!this.floatingLabel) {
+          this.$.label.classList.toggle('hidden', v);
+        }
+
+        if (this.floatingLabel && !this.focused) {
+          this.$.label.classList.toggle('hidden', v);
+          this.$.floatedLabel.classList.toggle('hidden', !v);
+        }
+      },
+
+      rowsChanged: function() {
+        if (this.multiline && !isNaN(parseInt(this.rows))) {
+          this.$.minInputHeight.innerHTML = '';
+          for (var i = 0; i < this.rows; i++) {
+            this.$.minInputHeight.appendChild(document.createElement('br'));
+          }
+          this.resizeInput();
+        }
+      },
+
+      maxRowsChanged: function() {
+        if (this.multiline && !isNaN(parseInt(this.maxRows))) {
+          this.$.maxInputHeight.innerHTML = '';
+          for (var i = 0; i < this.maxRows; i++) {
+            this.$.maxInputHeight.appendChild(document.createElement('br'));
+          }
+          this.resizeInput();
+        }
+      },
+
+      inputValueChanged: function() {
+        this.super();
+
+        if (this.multiline) {
+          var escaped = this.inputValue.replace(/\n/gm, '<br>');
+          if (!escaped || escaped.lastIndexOf('<br>') === escaped.length - 4) {
+            escaped += '&nbsp';
+          }
+          this.$.inputCloneSpan.innerHTML = escaped;
+          this.resizeInput();
+        }
+
+        this.toggleLabel();
+      },
+
+      labelChanged: function() {
+        if (this.floatingLabel && this.$.floatedLabel && this.$.label) {
+          // If the element is created programmatically, labelChanged is called before
+          // binding. Run the measuring code in async so the DOM is ready.
+          this.async(function() {
+            this.prepareLabelTransform();
+          });
+        }
+      },
+
+      placeholderChanged: function() {
+        this.label = this.placeholder;
+      },
+
+      inputFocusAction: function() {
+        if (!this.pressed) {
+          if (this.floatingLabel) {
+            this.$.floatedLabel.classList.remove('hidden');
+            this.$.floatedLabel.classList.add('focused');
+            this.$.floatedLabel.classList.add('focusedColor');
+          }
+          this.$.label.classList.add('hidden');
+          this.$.underlineHighlight.classList.add('focused');
+          this.$.caret.classList.add('focused');
+
+          this.super(arguments);
+        }
+        this.focused = true;
+      },
+
+      shouldFloatLabel: function() {
+        // if type = number, the input value is the empty string until a valid number
+        // is entered so we must do some hacks here
+        return this.inputValue || (this.type === 'number' && !this.validity.valid);
+      },
+
+      inputBlurAction: function() {
+        this.super(arguments);
+
+        this.$.underlineHighlight.classList.remove('focused');
+        this.$.caret.classList.remove('focused');
+
+        if (this.floatingLabel) {
+          this.$.floatedLabel.classList.remove('focused');
+          this.$.floatedLabel.classList.remove('focusedColor');
+          if (!this.shouldFloatLabel()) {
+            this.$.floatedLabel.classList.add('hidden');
+          }
+        }
+
+        // type = number hack. see core-input for more info
+        if (!this.shouldFloatLabel()) {
+          this.$.label.classList.remove('hidden');
+          this.$.label.classList.add('animating');
+          this.async(function() {
+            this.$.label.style.webkitTransform = 'none';
+            this.$.label.style.transform = 'none';
+          });
+        }
+
+        this.focused = false;
+      },
+
+      downAction: function(e) {
+        if (this.disabled) {
+          return;
+        }
+
+        if (this.focused) {
+          return;
+        }
+
+        this.pressed = true;
+        var rect = this.$.underline.getBoundingClientRect();
+        var right = e.x - rect.left;
+        this.$.underlineHighlight.style.webkitTransformOriginX = right + 'px';
+        this.$.underlineHighlight.style.transformOriginX = right + 'px';
+        this.$.underlineHighlight.classList.remove('focused');
+        this.underlineAsync = this.async(function() {
+          this.$.underlineHighlight.classList.add('pressed');
+        }, null, 200);
+
+        // No caret animation if there is text in the input.
+        if (!this.inputValue) {
+          this.$.caret.classList.remove('focused');
+        }
+      },
+
+      upAction: function(e) {
+        if (this.disabled) {
+          return;
+        }
+
+        if (!this.pressed) {
+          return;
+        }
+
+        // if a touchevent caused the up, the synthentic mouseevents will blur
+        // the input, make sure to prevent those from being generated.
+        if (e._source === 'touch') {
+          e.preventDefault();
+        }
+
+        if (this.underlineAsync) {
+          clearTimeout(this.underlineAsync);
+          this.underlineAsync = null;
+        }
+
+        // Focus the input here to bring up the virtual keyboard.
+        this.$.input.focus();
+        this.pressed = false;
+        this.animating = true;
+
+        this.$.underlineHighlight.classList.remove('pressed');
+        this.$.underlineHighlight.classList.add('animating');
+        this.async(function() {
+          this.$.underlineHighlight.classList.add('focused');
+        });
+
+        // No caret animation if there is text in the input.
+        if (!this.inputValue) {
+          this.$.caret.classList.add('animating');
+          this.async(function() {
+            this.$.caret.classList.add('focused');
+          }, null, 100);
+        }
+
+        if (this.floatingLabel) {
+          this.$.label.classList.add('focusedColor');
+          this.$.label.classList.add('animating');
+          if (!this.$.label.cachedTransform) {
+            this.prepareLabelTransform();
+          }
+          this.$.label.style.webkitTransform = this.$.label.cachedTransform;
+          this.$.label.style.transform = this.$.label.cachedTransform;
+        }
+      },
+
+      keydownAction: function() {
+        this.super();
+
+        // more type = number hacks. see core-input for more info
+        if (this.type === 'number') {
+          this.async(function() {
+            if (!this.inputValue) {
+              this.toggleLabel(!this.validity.valid);
+            }
+          });
+        }
+      },
+
+      keypressAction: function() {
+        if (this.animating) {
+          this.transitionEndAction();
+        }
+      },
+
+      transitionEndAction: function(e) {
+        this.animating = false;
+        if (this.pressed) {
+          return;
+        }
+
+        if (this.focused) {
+
+          if (this.floatingLabel || this.inputValue) {
+            this.$.label.classList.add('hidden');
+          }
+
+          if (this.floatingLabel) {
+            this.$.label.classList.remove('focusedColor');
+            this.$.label.classList.remove('animating');
+            this.$.floatedLabel.classList.remove('hidden');
+            this.$.floatedLabel.classList.add('focused');
+            this.$.floatedLabel.classList.add('focusedColor');
+          }
+
+          this.async(function() {
+            this.$.underlineHighlight.classList.remove('animating');
+            this.$.caret.classList.remove('animating');
+          }, null, 100);
+
+        } else {
+
+          this.$.label.classList.remove('animating');
+
+        }
+      }
+
+    });
+
+  }());
+
+  </script>
+
+</polymer-element>
+<polymer-element name="motivator-app" vertical="" layout="" applyauthorstyles="">
+    <template>
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css">
+        <style>:host {
+    min-height: 350px;
+}
+
+footer{
+    height:60px;
+}
+footer{
+    background-color:#f5f5f5;
+}
+@media (max-width: 767px) {
+    footer{margin-left:-20px;
+        margin-right:-20px;
+        padding-left:20px;
+        padding-right:20px;
+    }
+}
+
+.app-width{
+    max-width:680px;
+}
+
+.loading{
+    opacity: .5;
+}
+
+.main-block {
+    text-align: center;
+}
+
+.main-block #messageDisplay {
+    font-size: 34px;
+    line-height: 34px;
+    font-weight: bold;
+}
+
+.buttons {
+    line-height: 30px;
+    text-align: center;
+}</style>
+        <style>.color-primary {
+    background-color: #0048be;
+    color: white;
+}</style>
+
+
+        <div flex="" horizontal="" center-justified="" layout="">
+            <div flex="" class="app-width" vertical="" layout="">
+                <div class="page-header">
+                    <h3 class="muted">Motivator</h3>
+                </div>
+
+                <div flex="" vertical="" around-justified="" layout="">
+                    <div self-center="" class="main-block">
+                        <span id="messageDisplay">{{message}}</span>
+                    </div>
+                    <div self-center="" class="buttons">
+                        <paper-button label="Next advice" raisedbutton="" class="color-primary" role="button" tab-index="0" on-click="{{nextButton_click}}"></paper-button>
+                        <br>
+                        <a class="muted" on-click="{{addAdviceButton_click}}" href="">Send own advice</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <paper-dialog class="add-advice-dialog" heading="Submit new advice" opened="{{addAdvicePopup_opened}}">
+            <paper-input label="type you advice" required="" multiline="" rows="3" value="{{submittedAdvice}}" layout="" vertical="" autofocus=""></paper-input>
+            <paper-button label="Close" affirmative=""></paper-button>
+            <paper-button label="Submit!" affirmative="" on-click="{{submitAdviceButton_click}}"></paper-button>
+        </paper-dialog>
+
+
+        <footer horizontal="" center-justified="" layout="">
+            <div flex="" self-center="" class="muted credit app-width">
+                Example for <a href="http://letslearnnodejs.kelegorm.ru/">Let's learn Node.js</a>
+            </div>
+        </footer>
+
+    </template>
+
+    
+</polymer-element>
+
+<motivator-app flex=""></motivator-app>
+
+
+
+
+<script src="index.html_bootstrap.dart.js" async=""></script></body></html>
