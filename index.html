@@ -4168,8 +4168,8 @@ footer{
         </div>
 
 
-        <paper-dialog class="add-advice-dialog" heading="Submit new advice" opened="{{addAdvicePopup_opened}}">
-            <paper-input label="type you advice" required="" multiline="" rows="3" value="{{submittedAdvice}}" layout="" vertical="" autofocus=""></paper-input>
+        <paper-dialog class="add-advice-dialog" heading="Submit new advice" opened="{{addAdvicePopup_opened}}" backdrop="">
+            <paper-input label="type you advice" multiline="" value="{{submittedAdvice}}" autofocus=""></paper-input>
             <paper-button label="Close" affirmative=""></paper-button>
             <paper-button label="Submit!" affirmative="" on-click="{{submitAdviceButton_click}}"></paper-button>
         </paper-dialog>
