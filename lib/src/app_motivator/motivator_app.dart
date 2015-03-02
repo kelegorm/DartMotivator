@@ -21,20 +21,17 @@ class MotivatorApp extends PolymerElement {
   @observable
   String submittedAdvice = '';
 
-  IDataSource _data = new DataSource('http://motivator.apps.kelegorm.ru');
+//  IDataSource _data = new DataSource('http://motivator.apps.kelegorm.ru');
 //  IDataSource _data = new DataSource('http://localhost:3000');
-//  IDataSource _data = new MockSource();
+  IDataSource _data = new MockSource();
 
   //----------------------------------
   //  C O N S T R U C T O R
   //----------------------------------
   MotivatorApp.created() : super.created() {
     messageDisplay =  shadowRoot.querySelector('#messageDisplay') as SpanElement;
-
-
     loadAdvice();
   }
-
 
   void nextButton_click(MouseEvent event) {
     event.preventDefault();
