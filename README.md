@@ -8,3 +8,5 @@ It is a single page application with motivation advices. There is only two actio
 Project written on Dart with Polymer. [Try it](http://kelegorm.github.io/DartMotivator).
 
 Right now it works with mock data, but it works with [NP-1-Motivator](https://github.com/kelegorm/NP-1-Motivator).
+
+TODO: write some about this project, how it works, how was written.
